@@ -47,6 +47,7 @@ public class Solution {
         }
     }
 
+
     private static String getPersonInfo(String idString) throws ParseException, NullPointerException {
         Person person = findPerson(idString);
 
@@ -63,20 +64,7 @@ public class Solution {
         if (name == null && sex == null && birthday == null)
             return "Данные о человеке удалены!";
 
-        return String.join(" ", name, getSexForDisplay(sex), getBirthdayForDisplay(birthday));
-    }
-
-    private static String getBirthdayForDisplay(Date birthday) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
-        return dateFormat.format(birthday);
-    }
-
-    private static String getSexForDisplay(Sex sex) {
-        if (Objects.equals(sex, Sex.MALE))
-            return SEX_MALE;
-        else if (Objects.equals(sex, Sex.FEMALE))
-            return SEX_FEMALE;
-        return "";
+        return String.join(" ", name, getSexStringForDisplay(sex), getBirthdayForDisplay(birthday));
     }
 
     private static void removePerson(String idString) throws ParseException, NullPointerException {
@@ -93,8 +81,8 @@ public class Solution {
             throws ParseException, NullPointerException {
         Person person = findPerson(idString);
 
-        Sex sex = parseSex(sexString);
-        Date birthday = parseDate(birthdayString);
+        Sex sex = getSexFromDisplayingString(sexString);
+        Date birthday = getBirthdayFromDisplayingString(birthdayString);
 
         synchronized (person) {
             person.setName(name);
@@ -104,8 +92,8 @@ public class Solution {
     }
 
     private static int addPerson(String name, String sexString, String birthdayString) throws ParseException {
-        Date birthday = parseDate(birthdayString);
-        Sex sex = parseSex(sexString);
+        Date birthday = getBirthdayFromDisplayingString(birthdayString);
+        Sex sex = getSexFromDisplayingString(sexString);
 
         Person person;
         if (sex.equals(Sex.MALE))
@@ -121,25 +109,6 @@ public class Solution {
         return id;
     }
 
-    private static Date parseDate(String birthdayString) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            return dateFormat.parse(birthdayString);
-        } catch (ParseException e) {
-            throw new ParseException("Некорректно указана дата рождения! Ошибка в символе " + (e.getErrorOffset() + 1) +
-                    " строки " + birthdayString, e.getErrorOffset());
-        }
-    }
-
-    private static Sex parseSex(String sexString) throws ParseException {
-        if (SEX_MALE.equals(sexString))
-            return Sex.MALE;
-        else if (SEX_FEMALE.equals(sexString))
-            return Sex.FEMALE;
-        else
-            throw new ParseException("Не определен пол человека: " + sexString, 0);
-    }
-
     private static Person findPerson(String idString) throws ParseException, NullPointerException {
         Person person;
         try {// TODO null
@@ -150,5 +119,42 @@ public class Solution {
             throw new NullPointerException("Нет человека по указанному ид: " + idString);
         }
         return person;
+    }
+
+
+    private static Date getBirthdayFromDisplayingString(String birthdayString) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return dateFormat.parse(birthdayString);
+        } catch (ParseException e) {
+            throw new ParseException("Некорректно указана дата рождения! Ошибка в символе " + (e.getErrorOffset() + 1) +
+                    " строки " + birthdayString, e.getErrorOffset());
+        }
+    }
+
+    private static String getBirthdayForDisplay(Date birthday) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+        return dateFormat.format(birthday);
+    }
+
+    private static Sex getSexFromDisplayingString(String sexString) throws ParseException {
+        switch (sexString) {
+            case SEX_MALE:
+                return Sex.MALE;
+            case SEX_FEMALE:
+                return Sex.FEMALE;
+            default:
+                throw new ParseException("Не удалось определить пол человека: " + sexString, 0);
+        }
+    }
+
+    private static String getSexStringForDisplay(Sex sex) {
+        switch (sex) {
+            case MALE:
+                return SEX_MALE;
+            case FEMALE:
+                return SEX_FEMALE;
+        }
+        return "";
     }
 }
