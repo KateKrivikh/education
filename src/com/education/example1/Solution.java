@@ -2,16 +2,13 @@ package com.education.example1;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class Solution {
     public static final String SEX_MALE = "м";
     public static final String SEX_FEMALE = "ж";
 
-    public static List<Person> allPeople = new ArrayList<Person>();
+    public static List<Person> allPeople = new ArrayList<>();
 
     static {
         allPeople.add(Person.createMale("Иванов Иван", new Date()));  //сегодня родился    id=0
@@ -53,9 +50,9 @@ public class Solution {
     private static String getPersonInfo(String idString) throws ParseException, NullPointerException {
         Person person = findPerson(idString);
 
-        String name = null;
-        Sex sex = null;
-        Date birthday = null;
+        String name;
+        Sex sex;
+        Date birthday;
 
         synchronized (person) {
             name = person.getName();
@@ -66,19 +63,20 @@ public class Solution {
         if (name == null && sex == null && birthday == null)
             return "Данные о человеке удалены!";
 
-        StringBuffer info = new StringBuffer();
-        info.append(name).append(" ");
+        return String.join(" ", name, getSexForDisplay(sex), getBirthdayForDisplay(birthday));
+    }
 
-        if (sex.equals(Sex.MALE))
-            info.append(SEX_MALE);
-        else
-            info.append(SEX_FEMALE);
-        info.append(" ");
-
+    private static String getBirthdayForDisplay(Date birthday) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
-        info.append(dateFormat.format(birthday));
+        return dateFormat.format(birthday);
+    }
 
-        return info.toString();
+    private static String getSexForDisplay(Sex sex) {
+        if (Objects.equals(sex, Sex.MALE))
+            return SEX_MALE;
+        else if (Objects.equals(sex, Sex.FEMALE))
+            return SEX_FEMALE;
+        return "";
     }
 
     private static void removePerson(String idString) throws ParseException, NullPointerException {
