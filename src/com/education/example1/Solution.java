@@ -1,5 +1,7 @@
 package com.education.example1;
 
+import com.sun.istack.internal.Nullable;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -7,12 +9,35 @@ import java.util.*;
 public class Solution {
     public static final String SEX_MALE = "м";
     public static final String SEX_FEMALE = "ж";
+    public static final String DATE_FORMAT_FOR_INPUT = "dd/MM/yyyy";
+    public static final String DATE_FORMAT_FOR_OUTPUT = "dd-MMM-yyyy";
+
+    public static final String PARAM_ADD = "-c";
+    public static final String PARAM_UPDATE = "-u";
+    public static final String PARAM_REMOVE = "-d";
+    public static final String PARAM_INFO = "-i";
+
+    public static final String MESSAGE_NOT_ENOUGH_PARAMETERS = "Недостаточно параметров!";
+    public static final String MESSAGE_PARSE_EXCEPTION_SEX = "Не удалось определить пол человека по параметру %s\nОжидаемый формат: \"%s\" или \"%s\"";
+    public static final String MESSAGE_PARSE_EXCEPTION_DATE = "Не удалось определить дату рождения по параметру %s\nОжидаемый формат: %s";
+    public static final String MESSAGE_PARSE_EXCEPTION_ID = "Не удалось определить идентификатор человека по параметру %s\nОжидаемый формат - целое число";
+    public static final String MESSAGE_NOT_FINED_PERSON_BY_ID = "Не удалось найти человека по указанному ид: %d";
+    public static final String MESSAGE_INFO_FOR_REMOVED_PERSON = "Данные о человеке с id=%s удалены!";
 
     public static List<Person> allPeople = new ArrayList<>();
 
     static {
+        // По заданию в main должны передаваться параметры CRUD.
+        // Список при этом должен быть заполнен, чтобы были какие-то данные.
+        // Надо подумать и сделать поинтересней.
         allPeople.add(Person.createMale("Иванов Иван", new Date()));  //сегодня родился    id=0
         allPeople.add(Person.createMale("Петров Петр", new Date()));  //сегодня родился    id=1
+        allPeople.add(Person.createMale("Петров Петр", new Date()));  //сегодня родился    id=2
+        try {
+            removePerson("2");
+        } catch (ParseException e) {
+            //
+        }
     }
 
     public static void main(String[] args) {
@@ -23,26 +48,24 @@ public class Solution {
 
         try {
             switch (args[0]) {
-                case "-c": {
+                case PARAM_ADD: {
                     int id = addPerson(args[1], args[2], args[3]);
                     System.out.println(id);
                     break;
                 }
-                case "-u":
+                case PARAM_UPDATE:
                     updatePerson(args[1], args[2], args[3], args[4]);
                     break;
-                case "-d":
+                case PARAM_REMOVE:
                     removePerson(args[1]);
                     break;
-                case "-i":
+                case PARAM_INFO:
                     String info = getPersonInfo(args[1]);
                     System.out.println(info);
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Недостаточно параметров!");
-        } catch (ParseException e) {
-            System.out.println(e.getMessage());
-        } catch (NullPointerException e) {
+            System.out.println(MESSAGE_NOT_ENOUGH_PARAMETERS);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -62,7 +85,7 @@ public class Solution {
         }
 
         if (name == null && sex == null && birthday == null)
-            return "Данные о человеке удалены!";
+            return String.format(MESSAGE_INFO_FOR_REMOVED_PERSON, idString);
 
         return String.join(" ", name, getSexStringForDisplay(sex), getBirthdayForDisplay(birthday));
     }
@@ -101,39 +124,43 @@ public class Solution {
         else
             person = Person.createFemale(name, birthday);
 
-        int id;
-        synchronized (allPeople) {
-            allPeople.add(person);
-            id = allPeople.size() - 1;
-        }
-        return id;
+        allPeople.add(person);
+
+        return allPeople.indexOf(person);
     }
 
     private static Person findPerson(String idString) throws ParseException, NullPointerException {
-        Person person;
-        try {// TODO null
-            person = allPeople.get(Integer.parseInt(idString));
-        } catch (NumberFormatException e) {
-            throw new ParseException("Некорректный ид: " + idString, 0);
-        } catch (IndexOutOfBoundsException e) {
-            throw new NullPointerException("Нет человека по указанному ид: " + idString);
-        }
-        return person;
+        int id = getIdFromDisplayingString(idString);
+        return getPersonById(id);
+    }
+
+    private static Person getPersonById(int id) throws NullPointerException {
+        if (allPeople.size() > id)
+            return allPeople.get(id);
+        else
+            throw new NullPointerException(String.format(MESSAGE_NOT_FINED_PERSON_BY_ID, id));
     }
 
 
+    private static int getIdFromDisplayingString(String idString) throws ParseException {
+        try {
+            return Integer.parseInt(idString);
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_PARSE_EXCEPTION_ID, idString), 0);
+        }
+    }
+
     private static Date getBirthdayFromDisplayingString(String birthdayString) throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_FOR_INPUT);
         try {
             return dateFormat.parse(birthdayString);
         } catch (ParseException e) {
-            throw new ParseException("Некорректно указана дата рождения! Ошибка в символе " + (e.getErrorOffset() + 1) +
-                    " строки " + birthdayString, e.getErrorOffset());
+            throw new ParseException(String.format(MESSAGE_PARSE_EXCEPTION_DATE, birthdayString, DATE_FORMAT_FOR_INPUT), 0);
         }
     }
 
     private static String getBirthdayForDisplay(Date birthday) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_FOR_OUTPUT, Locale.ENGLISH);
         return dateFormat.format(birthday);
     }
 
@@ -144,11 +171,11 @@ public class Solution {
             case SEX_FEMALE:
                 return Sex.FEMALE;
             default:
-                throw new ParseException("Не удалось определить пол человека: " + sexString, 0);
+                throw new ParseException(String.format(MESSAGE_PARSE_EXCEPTION_SEX, sexString, SEX_MALE, SEX_FEMALE), 0);
         }
     }
 
-    private static String getSexStringForDisplay(Sex sex) {
+    private static String getSexStringForDisplay(@Nullable Sex sex) {
         switch (sex) {
             case MALE:
                 return SEX_MALE;
