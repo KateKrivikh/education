@@ -6,15 +6,37 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Provides CRUD operations.
+ * Params for operations set as program arguments.
+ * There are 4 available operations:
+ * -c - adding new person:
+ *      -c Сидоров м 24/03/1999
+ * -u - updating existing person:
+ *      -u 2 Сидорова ж 25/02/2001
+ * -d - removing existing person:
+ *      -d 2
+ * -i - print information about existing person in console:
+ *      -i 2
+ *
+ * At the moment operation can be only one.
+ * I think, there should be package operations. Maybe list of different kind of operations.
+ * Maybe, operations with parameters should entered by person in console.
+ * Maybe, need to add operation-info by all the person list.
+ */
 public class Solution {
     public static final String SEX_MALE = "м";
     public static final String SEX_FEMALE = "ж";
     public static final String DATE_FORMAT_FOR_INPUT = "dd/MM/yyyy";
     public static final String DATE_FORMAT_FOR_OUTPUT = "dd-MMM-yyyy";
 
+    // пример входных данных: -c Сидоров м 24/03/1999
     public static final String PARAM_ADD = "-c";
+    // пример входных данных: -u 2 Сидорова ж 25/02/2001
     public static final String PARAM_UPDATE = "-u";
+    // пример входных данных: -d 2
     public static final String PARAM_REMOVE = "-d";
+    // пример входных данных: -i 2
     public static final String PARAM_INFO = "-i";
 
     public static final String MESSAGE_NOT_ENOUGH_PARAMETERS = "Недостаточно параметров!";
