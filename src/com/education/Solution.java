@@ -1,10 +1,10 @@
-package com.education.example1;
+package com.education;
 
-import com.education.example1.commands.Command;
-import com.education.example1.commands.CommandFactory;
-import com.education.example1.commands.Operation;
-import com.education.example1.exceptions.IncorrectInputException;
-import com.education.example1.exceptions.PersonNotFoundException;
+import com.education.commands.Command;
+import com.education.commands.CommandFactory;
+import com.education.commands.Operation;
+import com.education.exceptions.IncorrectInputException;
+import com.education.exceptions.PersonNotFoundException;
 
 import java.util.Arrays;
 

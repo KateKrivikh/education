@@ -1,4 +1,4 @@
-package com.education.example1;
+package com.education;
 
 public enum Sex {
     MALE,

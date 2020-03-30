@@ -1,7 +1,11 @@
-package com.education.example1.commands;
+package com.education.commands;
 
-import com.education.example1.*;
-import com.education.example1.exceptions.*;
+import com.education.InputParser;
+import com.education.Person;
+import com.education.PersonRepository;
+import com.education.Sex;
+import com.education.exceptions.IncorrectInputException;
+import com.education.exceptions.PersonNotFoundException;
 
 import java.util.Date;
 

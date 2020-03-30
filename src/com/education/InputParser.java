@@ -1,8 +1,8 @@
-package com.education.example1;
+package com.education;
 
-import com.education.example1.commands.Command;
-import com.education.example1.commands.Operation;
-import com.education.example1.exceptions.IncorrectInputException;
+import com.education.commands.Command;
+import com.education.commands.Operation;
+import com.education.exceptions.IncorrectInputException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

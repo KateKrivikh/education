@@ -1,6 +1,6 @@
-package com.education.example1.tests;
+package com.education.tests;
 
-import com.education.example1.Solution;
+import com.education.Solution;
 import org.junit.Test;
 
 // TODO тесты пока не проверяют на assert, т.к. всё равно переделывать буду

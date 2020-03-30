@@ -1,9 +1,10 @@
-package com.education.example1.commands;
+package com.education.commands;
 
-import com.education.example1.InputParser;
-import com.education.example1.Person;
-import com.education.example1.PersonRepository;
-import com.education.example1.exceptions.*;
+import com.education.InputParser;
+import com.education.Person;
+import com.education.PersonRepository;
+import com.education.exceptions.IncorrectInputException;
+import com.education.exceptions.PersonNotFoundException;
 
 //-d 2
 public class CommandRemove extends Command {

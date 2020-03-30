@@ -1,6 +1,6 @@
-package com.education.example1;
+package com.education;
 
-import com.education.example1.exceptions.PersonNotFoundException;
+import com.education.exceptions.PersonNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Date;

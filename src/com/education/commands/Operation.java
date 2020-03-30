@@ -1,4 +1,4 @@
-package com.education.example1.commands;
+package com.education.commands;
 
 public enum Operation {
     ADD,

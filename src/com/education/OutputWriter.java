@@ -1,6 +1,5 @@
-package com.education.example1;
+package com.education;
 
-import com.education.example1.Sex;
 import com.sun.istack.internal.Nullable;
 
 import java.text.SimpleDateFormat;

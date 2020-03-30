@@ -1,6 +1,7 @@
-package com.education.example1.commands;
+package com.education.commands;
 
-import com.education.example1.exceptions.*;
+import com.education.exceptions.IncorrectInputException;
+import com.education.exceptions.PersonNotFoundException;
 
 public abstract class Command {
     private Operation operation;
