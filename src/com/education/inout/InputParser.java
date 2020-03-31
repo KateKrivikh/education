@@ -1,5 +1,6 @@
-package com.education;
+package com.education.inout;
 
+import com.education.entities.Sex;
 import com.education.commands.Command;
 import com.education.commands.Operation;
 import com.education.exceptions.IncorrectInputException;
@@ -9,9 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class InputParser {
-    // пример входных данных: -c Сидоров м 24/03/1999
+    // пример входных данных: -c Семенов м 24/03/1999
     public static final String PARAM_ADD = "-c";
-    // пример входных данных: -u 2 Сидорова ж 25/02/2001
+    // пример входных данных: -u 2 Семенов м 25/02/2001
     public static final String PARAM_UPDATE = "-u";
     // пример входных данных: -d 2
     public static final String PARAM_REMOVE = "-d";

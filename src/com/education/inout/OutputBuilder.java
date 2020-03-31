@@ -1,12 +1,13 @@
-package com.education;
+package com.education.inout;
 
+import com.education.entities.Sex;
 import com.sun.istack.internal.Nullable;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class OutputWriter {
+public class OutputBuilder {
     public static final String SEX_MALE = "м";
     public static final String SEX_FEMALE = "ж";
     public static final String SEX_UNKNOWN = "";
@@ -17,18 +18,20 @@ public class OutputWriter {
     public static final String DATE_FORMAT_FOR_OUTPUT = "dd-MMM-yyyy";
 
 
-    public static void writeInfo(String string) {
-        System.out.println(string);
+    public static String getPersonInfo(int id, String name, Sex sex, Date birthday) {
+        if (name == null && sex == null && birthday == null)
+            return getPersonInfoRemoved(id);
+        else
+            return getPersonInfo(name, sex, birthday);
     }
 
-    public static void writeInfoPersonRemoved(int id) {
-        writeInfo(String.format(MESSAGE_INFO_FOR_REMOVED_PERSON, id));
+    private static String getPersonInfoRemoved(int id) {
+        return String.format(MESSAGE_INFO_FOR_REMOVED_PERSON, id);
     }
 
-    public static void writeInfoPerson(String name, Sex sex, Date birthday) {
-        writeInfo(String.join(MESSAGE_INFO_DELIMITER, name, writeSex(sex), writeDate(birthday)));
+    private static String getPersonInfo(String name, Sex sex, Date birthday) {
+        return String.join(MESSAGE_INFO_DELIMITER, name, writeSex(sex), writeDate(birthday));
     }
-
 
     private static String writeSex(@Nullable Sex sex) {
         switch (sex) {

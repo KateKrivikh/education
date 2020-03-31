@@ -1,14 +1,13 @@
 package com.education.commands;
 
-import com.education.InputParser;
-import com.education.Person;
+import com.education.inout.InputParser;
+import com.education.entities.Person;
 import com.education.PersonRepository;
-import com.education.Sex;
+import com.education.entities.Sex;
 import com.education.exceptions.IncorrectInputException;
 
 import java.util.Date;
 
-//-c Сидоров м 24/03/1999
 public class CommandAdd extends Command {
 
     public static final int PARAMETERS_COUNT = 3;
@@ -33,6 +32,8 @@ public class CommandAdd extends Command {
         else
             person = Person.createFemale(name, birthday);
 
-        return PersonRepository.addPerson(person);
+        PersonRepository.save(person);
+
+        return person.getId();
     }
 }

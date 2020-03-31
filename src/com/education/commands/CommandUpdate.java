@@ -1,15 +1,14 @@
 package com.education.commands;
 
-import com.education.InputParser;
-import com.education.Person;
+import com.education.inout.InputParser;
+import com.education.entities.Person;
 import com.education.PersonRepository;
-import com.education.Sex;
+import com.education.entities.Sex;
 import com.education.exceptions.IncorrectInputException;
 import com.education.exceptions.PersonNotFoundException;
 
 import java.util.Date;
 
-//-u 2 Сидорова ж 25/02/2001
 public class CommandUpdate extends Command {
 
     public static final int PARAMETERS_COUNT = 4;
@@ -27,7 +26,7 @@ public class CommandUpdate extends Command {
         Sex sex = InputParser.parseSex(args[2]);
         Date birthday = InputParser.parseDate(args[3]);
 
-        Person person = PersonRepository.getPersonById(id);
+        Person person = PersonRepository.getById(id);
 
         // TODO пока что оставила как есть, буду думать дальше
         synchronized (person) {

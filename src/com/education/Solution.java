@@ -3,8 +3,10 @@ package com.education;
 import com.education.commands.Command;
 import com.education.commands.CommandFactory;
 import com.education.commands.Operation;
+import com.education.entities.Person;
 import com.education.exceptions.IncorrectInputException;
 import com.education.exceptions.PersonNotFoundException;
+import com.education.inout.InputParser;
 
 import java.util.Arrays;
 
@@ -46,8 +48,8 @@ public class Solution {
             // TODO пока так для проверки
             System.out.println("-------------------");
             Command info = CommandFactory.create(Operation.INFO);
-            for (int i = 0; i < PersonRepository.allPeople.size(); i++) {
-                String[] argsInfo = new String[]{String.valueOf(i)};
+            for (Person person : PersonRepository.getAll()) {
+                String[] argsInfo = new String[]{String.valueOf(person.getId())};
                 info.execute(argsInfo);
             }
 

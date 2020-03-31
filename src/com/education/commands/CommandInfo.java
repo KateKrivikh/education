@@ -1,12 +1,16 @@
 package com.education.commands;
 
 import com.education.*;
+import com.education.entities.Person;
+import com.education.entities.Sex;
 import com.education.exceptions.IncorrectInputException;
 import com.education.exceptions.PersonNotFoundException;
+import com.education.inout.ConsoleWriter;
+import com.education.inout.InputParser;
+import com.education.inout.OutputBuilder;
 
 import java.util.Date;
 
-//-i 2
 public class CommandInfo extends Command {
 
     public static final int PARAMETERS_COUNT = 1;
@@ -21,7 +25,7 @@ public class CommandInfo extends Command {
 
         int id = InputParser.parseId(args[0]);
 
-        Person person = PersonRepository.getPersonById(id);
+        Person person = PersonRepository.getById(id);
 
         // TODO пока что оставила как есть, буду думать дальше
         String name;
@@ -34,10 +38,9 @@ public class CommandInfo extends Command {
             birthday = person.getBirthDate();
         }
 
-        if (name == null && sex == null && birthday == null)
-            OutputWriter.writeInfoPersonRemoved(id);
-        else
-            OutputWriter.writeInfoPerson(name, sex, birthday);
+        String info = OutputBuilder.getPersonInfo(id, name, sex, birthday);
+
+        ConsoleWriter.write(info);
 
         return id;
     }
