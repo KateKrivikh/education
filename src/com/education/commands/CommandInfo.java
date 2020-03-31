@@ -1,11 +1,11 @@
 package com.education.commands;
 
-import com.education.*;
+import com.education.PersonRepository;
+import com.education.Start;
 import com.education.entities.Person;
 import com.education.entities.Sex;
 import com.education.exceptions.IncorrectInputException;
 import com.education.exceptions.PersonNotFoundException;
-import com.education.inout.ConsoleWriter;
 import com.education.inout.InputParser;
 import com.education.inout.OutputBuilder;
 
@@ -40,7 +40,7 @@ public class CommandInfo extends Command {
 
         String info = OutputBuilder.getPersonInfo(id, name, sex, birthday);
 
-        ConsoleWriter.write(info);
+        Start.controller.write(info);
 
         return id;
     }

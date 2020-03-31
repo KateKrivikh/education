@@ -12,7 +12,7 @@ public class OutputBuilder {
     public static final String SEX_FEMALE = "ж";
     public static final String SEX_UNKNOWN = "";
 
-    public static final String MESSAGE_INFO_FOR_REMOVED_PERSON = "Данные о человеке с id=%s удалены!";
+    public static final String MESSAGE_INFO_FOR_REMOVED_PERSON = "Данные о человеке с id = %s удалены!";
     public static final String MESSAGE_INFO_DELIMITER = " ";
 
     public static final String DATE_FORMAT_FOR_OUTPUT = "dd-MMM-yyyy";

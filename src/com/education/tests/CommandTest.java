@@ -3,7 +3,10 @@ package com.education.tests;
 import com.education.*;
 import com.education.entities.Person;
 import com.education.entities.Sex;
+import com.education.exceptions.IncorrectInputException;
 import com.education.exceptions.PersonNotFoundException;
+import com.education.inout.Controller;
+import com.education.inout.ControllerConsole;
 import com.education.inout.InputParser;
 import com.education.inout.OutputBuilder;
 import org.junit.Assert;
@@ -15,6 +18,7 @@ import java.util.*;
 
 // TODO тесты пока самые общие
 public class CommandTest {
+    Controller controller = new ControllerConsole();
     SimpleDateFormat inputDateFormat = new SimpleDateFormat(InputParser.DATE_FORMAT_FOR_INPUT);
 
     public List<Person> getPeople() {
@@ -49,7 +53,11 @@ public class CommandTest {
         String date = "24/03/1999";
 
         String[] args = {"-c", name, sex, date};
-        Solution.main(args);
+        try {
+            controller.executeCommand(args);
+        } catch (IncorrectInputException | PersonNotFoundException e) {
+            controller.write(e.getMessage());
+        }
 
         List<Person> actual = PersonRepository.getAll();
 
@@ -75,7 +83,11 @@ public class CommandTest {
         String date = "24/03/1999";
 
         String[] args = {"-u", id, name, sex, date};
-        Solution.main(args);
+        try {
+            controller.executeCommand(args);
+        } catch (IncorrectInputException | PersonNotFoundException e) {
+            controller.write(e.getMessage());
+        }
 
         List<Person> actual = PersonRepository.getAll();
 
@@ -98,7 +110,11 @@ public class CommandTest {
 
         String id = String.valueOf(initial.get(1).getId());
         String[] args = {"-d", id};
-        Solution.main(args);
+        try {
+            controller.executeCommand(args);
+        } catch (IncorrectInputException | PersonNotFoundException e) {
+            controller.write(e.getMessage());
+        }
 
         List<Person> actual = PersonRepository.getAll();
 
@@ -120,7 +136,11 @@ public class CommandTest {
 
         String id = String.valueOf(initial.get(1).getId());
         String[] args = {"-i", id};
-        Solution.main(args);
+        try {
+            controller.executeCommand(args);
+        } catch (IncorrectInputException | PersonNotFoundException e) {
+            controller.write(e.getMessage());
+        }
 
         List<Person> actual = PersonRepository.getAll();
 

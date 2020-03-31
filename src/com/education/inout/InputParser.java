@@ -19,6 +19,11 @@ public class InputParser {
     // пример входных данных: -i 2
     public static final String PARAM_INFO = "-i";
 
+    public static final String MESSAGE_OPERATIONS = "-c Семенов м 03/03/2003        - добавить человека\n" +
+            "-u id Семенова ж 02/02/2002    - обновить данные человека по идентификатору\n" +
+            "-d id                          - удалить данные человека по идентификатору\n" +
+            "-i id                          - вывести информацию о человеке по идентификатору";
+
 
     public static final String SEX_MALE = "м";
     public static final String SEX_FEMALE = "ж";
