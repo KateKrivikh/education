@@ -67,9 +67,6 @@ public class InputParser {
             case SEX_FEMALE:
                 return Sex.FEMALE;
         }
-        // TODO Наверное, "м" и "ж" засунуть в enum.
-        // TODO Следовательно, не надо будет здесь передавать.
-        // TODO Соответственно при парсинге/форматировании брать из enum'a.
         throw new IncorrectSexException(sexString, SEX_MALE + ", " + SEX_FEMALE);
     }
 
