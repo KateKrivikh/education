@@ -3,8 +3,9 @@ package com.education.tests;
 import com.education.PersonRepository;
 import com.education.entities.Person;
 import com.education.entities.Sex;
+import com.education.exceptions.domain.DomainExceptions;
 import com.education.exceptions.incorrectInput.IncorrectInputException;
-import com.education.exceptions.PersonNotFoundException;
+import com.education.exceptions.domain.PersonNotFoundException;
 import com.education.inout.Controller;
 import com.education.inout.ControllerConsole;
 import com.education.inout.InputParser;
@@ -57,7 +58,7 @@ public class CommandTest {
         String[] args = {"-c", name, sex, date};
         try {
             controller.executeCommand(args);
-        } catch (IncorrectInputException | PersonNotFoundException e) {
+        } catch (IncorrectInputException | DomainExceptions e) {
             controller.write(e.getMessage());
         }
 
@@ -87,7 +88,7 @@ public class CommandTest {
         String[] args = {"-u", id, name, sex, date};
         try {
             controller.executeCommand(args);
-        } catch (IncorrectInputException | PersonNotFoundException e) {
+        } catch (IncorrectInputException | DomainExceptions e) {
             controller.write(e.getMessage());
         }
 
@@ -114,7 +115,7 @@ public class CommandTest {
         String[] args = {"-d", id};
         try {
             controller.executeCommand(args);
-        } catch (IncorrectInputException | PersonNotFoundException e) {
+        } catch (IncorrectInputException | DomainExceptions e) {
             controller.write(e.getMessage());
         }
 
@@ -140,7 +141,7 @@ public class CommandTest {
         String[] args = {"-i", id};
         try {
             controller.executeCommand(args);
-        } catch (IncorrectInputException | PersonNotFoundException e) {
+        } catch (IncorrectInputException | DomainExceptions e) {
             controller.write(e.getMessage());
         }
 

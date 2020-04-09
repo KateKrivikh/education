@@ -1,7 +1,7 @@
 package com.education;
 
+import com.education.exceptions.domain.DomainExceptions;
 import com.education.exceptions.InOutException;
-import com.education.exceptions.PersonNotFoundException;
 import com.education.exceptions.console.ExitExpectedException;
 import com.education.inout.Controller;
 import com.education.inout.ControllerConsole;
@@ -32,7 +32,7 @@ public class Start {
                 controller.executeCommand(command);
             } catch (ExitExpectedException e) {
                 break;
-            } catch (InOutException | PersonNotFoundException e) {
+            } catch (InOutException | DomainExceptions e) {
                 controller.write(e.getMessage());
             }
         }

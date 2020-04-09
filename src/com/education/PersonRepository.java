@@ -1,12 +1,11 @@
 package com.education;
 
 import com.education.entities.Person;
-import com.education.exceptions.PersonNotFoundException;
+import com.education.exceptions.domain.PersonNotFoundException;
 
 import java.util.*;
 
 public class PersonRepository {
-    public static final String MESSAGE_NOT_FINED_PERSON_BY_ID = "Не удалось найти человека по указанному ид: %d";
 
     public static Map<Integer, Person> allPeople = new HashMap<>();
 
@@ -18,7 +17,7 @@ public class PersonRepository {
         if (allPeople.containsKey(id))
             return allPeople.get(id);
         else
-            throw new PersonNotFoundException(String.format(MESSAGE_NOT_FINED_PERSON_BY_ID, id));
+            throw new PersonNotFoundException(id);
     }
 
     public static void save(Person person) {

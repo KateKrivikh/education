@@ -3,14 +3,15 @@ package com.education.inout;
 import com.education.commands.Command;
 import com.education.commands.CommandFactory;
 import com.education.commands.Operation;
-import com.education.exceptions.PersonNotFoundException;
+import com.education.exceptions.InOutException;
+import com.education.exceptions.domain.DomainExceptions;
 
 import java.util.Arrays;
 
 public abstract class Controller {
     public abstract String[] getCommand();
 
-    public void executeCommand(String[] args) throws PersonNotFoundException {
+    public void executeCommand(String[] args) throws InOutException, DomainExceptions {
         if (!actionsBeforeCommand(args))
             return;
 

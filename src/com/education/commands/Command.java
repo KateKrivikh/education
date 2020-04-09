@@ -1,13 +1,17 @@
 package com.education.commands;
 
-import com.education.exceptions.PersonNotFoundException;
+import com.education.exceptions.domain.DomainExceptions;
+import com.education.exceptions.domain.OperationIsEmptyException;
 import com.education.exceptions.incorrectInput.IncorrectInputException;
 
 public abstract class Command {
     private Operation operation;
     private int parametersCount;
 
-    public Command(Operation operation, int parametersCount) {
+    public Command(Operation operation, int parametersCount) throws OperationIsEmptyException {
+        if (operation == null)
+            throw new OperationIsEmptyException();
+
         this.operation = operation;
         this.parametersCount = parametersCount;
     }
@@ -20,6 +24,6 @@ public abstract class Command {
         return parametersCount;
     }
 
-    public abstract int execute(String[] args) throws IncorrectInputException, PersonNotFoundException;
+    public abstract int execute(String[] args) throws IncorrectInputException, DomainExceptions;
 
 }

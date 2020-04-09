@@ -24,7 +24,7 @@ public class ControllerConsole extends Controller {
     }
 
     @Override
-    public String[] getCommand() {
+    public String[] getCommand() throws ReadFromConsoleException {
         try {
             String string = reader.readLine();
             return string.split("\\s");     // TODO name состоит из нескольких слов
