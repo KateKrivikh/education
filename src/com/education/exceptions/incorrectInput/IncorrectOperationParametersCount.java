@@ -10,8 +10,6 @@ public class IncorrectOperationParametersCount extends IncorrectInputException {
         super(message);
     }
 
-    // TODO Наверное, надо вынести количество параметров для команды в enum.
-    // TODO Подумать, может Command вообще интерфейсом сделать (Executable).
     public IncorrectOperationParametersCount(Command command, int parametersCount) {
         this(String.format(MESSAGE_PARSE_EXCEPTION_WRONG_PARAMETERS_COUNT,
                 command.getOperation(), parametersCount));
