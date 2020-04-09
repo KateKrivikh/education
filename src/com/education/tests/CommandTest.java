@@ -1,6 +1,6 @@
 package com.education.tests;
 
-import com.education.*;
+import com.education.PersonRepository;
 import com.education.entities.Person;
 import com.education.entities.Sex;
 import com.education.exceptions.IncorrectInputException;
@@ -12,23 +12,25 @@ import com.education.inout.OutputBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.List;
 
 // TODO тесты пока самые общие
 public class CommandTest {
     Controller controller = new ControllerConsole();
-    SimpleDateFormat inputDateFormat = new SimpleDateFormat(InputParser.DATE_FORMAT_FOR_INPUT);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(InputParser.DATE_FORMAT_FOR_INPUT);
 
     public List<Person> getPeople() {
         try {
-            Person person1 = Person.createMale("Иванов Иван", inputDateFormat.parse("01/01/2000"));
-            Person person2 = Person.createMale("Петров Петр", inputDateFormat.parse("03/03/2003"));
-            Person person3 = Person.createMale("Сергеев Сергей", inputDateFormat.parse("05/05/2005"));
+            Person person1 = Person.createMale("Иванов Иван", LocalDate.parse("01/01/2000", formatter));
+            Person person2 = Person.createMale("Петров Петр", LocalDate.parse("03/03/2003", formatter));
+            Person person3 = Person.createMale("Сергеев Сергей", LocalDate.parse("05/05/2005", formatter));
 
             return Arrays.asList(person1, person2, person3);
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             e.printStackTrace();
         }
         return null;
@@ -67,7 +69,7 @@ public class CommandTest {
             if (!initial.contains(person)) {
                 Assert.assertEquals(name, person.getName());
                 Assert.assertEquals(Sex.MALE, person.getSex());
-                Assert.assertEquals(date, inputDateFormat.format(person.getBirthDate()));
+                Assert.assertEquals(date, formatter.format(person.getBirthDate()));
             }
         }
     }
@@ -98,7 +100,7 @@ public class CommandTest {
                 Assert.assertEquals(id, String.valueOf(person.getId()));
                 Assert.assertEquals(name, person.getName());
                 Assert.assertEquals(Sex.MALE, person.getSex());
-                Assert.assertEquals(date, inputDateFormat.format(person.getBirthDate()));
+                Assert.assertEquals(date, formatter.format(person.getBirthDate()));
             }
         }
     }

@@ -1,12 +1,12 @@
 package com.education.commands;
 
-import com.education.inout.InputParser;
-import com.education.entities.Person;
 import com.education.PersonRepository;
+import com.education.entities.Person;
 import com.education.entities.Sex;
 import com.education.exceptions.IncorrectInputException;
+import com.education.inout.InputParser;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class CommandAdd extends Command {
 
@@ -22,15 +22,15 @@ public class CommandAdd extends Command {
 
         String name = args[0];
         Sex sex = InputParser.parseSex(args[1]);
-        Date birthday = InputParser.parseDate(args[2]);
+        LocalDate birthDate = InputParser.parseDate(args[2]);
 
         Person person;
         // TODO либо добавить дополнительные поля для мужчин и для женщин и сделать фабрику
         // TODO либо один конструктор
         if (sex.equals(Sex.MALE))
-            person = Person.createMale(name, birthday);
+            person = Person.createMale(name, birthDate);
         else
-            person = Person.createFemale(name, birthday);
+            person = Person.createFemale(name, birthDate);
 
         PersonRepository.save(person);
 

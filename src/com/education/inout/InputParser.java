@@ -1,13 +1,13 @@
 package com.education.inout;
 
-import com.education.entities.Sex;
 import com.education.commands.Command;
 import com.education.commands.Operation;
+import com.education.entities.Sex;
 import com.education.exceptions.IncorrectInputException;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class InputParser {
     // пример входных данных: -c Семенов м 24/03/1999
@@ -28,6 +28,7 @@ public class InputParser {
     public static final String SEX_MALE = "м";
     public static final String SEX_FEMALE = "ж";
     public static final String DATE_FORMAT_FOR_INPUT = "dd/MM/yyyy";
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_FOR_INPUT);
 
     public static final String MESSAGE_PARSE_EXCEPTION_UNKNOWN_COMMAND = "Неизвестная команда: ";
     public static final String MESSAGE_PARSE_EXCEPTION_WRONG_PARAMETERS_COUNT = "Неверное количество параметров для команды %s\nОжидаемое количество параметров: %d";
@@ -76,12 +77,11 @@ public class InputParser {
         throw new IncorrectInputException(String.format(MESSAGE_PARSE_EXCEPTION_SEX, sexString, SEX_MALE, SEX_FEMALE));
     }
 
-    public static Date parseDate(String birthdayString) throws IncorrectInputException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_FOR_INPUT);
+    public static LocalDate parseDate(String birthDateString) throws IncorrectInputException {
         try {
-            return dateFormat.parse(birthdayString);
-        } catch (ParseException e) {
-            throw new IncorrectInputException(String.format(MESSAGE_PARSE_EXCEPTION_DATE, birthdayString, DATE_FORMAT_FOR_INPUT));
+            return LocalDate.parse(birthDateString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new IncorrectInputException(String.format(MESSAGE_PARSE_EXCEPTION_DATE, birthDateString, DATE_FORMAT_FOR_INPUT));
         }
     }
 

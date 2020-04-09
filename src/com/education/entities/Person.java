@@ -1,6 +1,6 @@
 package com.education.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Person {
     private static int countPerson = 0;
@@ -12,20 +12,20 @@ public class Person {
     private int id;
     private String name;
     private Sex sex;
-    private Date birthDate;
+    private LocalDate birthDate;
 
-    private Person(String name, Sex sex, Date birthDate) {
+    private Person(String name, Sex sex, LocalDate birthDate) {
         this.name = name;
         this.sex = sex;
         this.birthDate = birthDate;
         this.id = ++countPerson;
     }
 
-    public static Person createMale(String name, Date birthDate) {
+    public static Person createMale(String name, LocalDate birthDate) {
         return new Person(name, Sex.MALE, birthDate);
     }
 
-    public static Person createFemale(String name, Date birthDate) {
+    public static Person createFemale(String name, LocalDate birthDate) {
         return new Person(name, Sex.FEMALE, birthDate);
     }
 
@@ -49,11 +49,11 @@ public class Person {
         this.sex = sex;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 }

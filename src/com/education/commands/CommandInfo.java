@@ -9,7 +9,7 @@ import com.education.exceptions.PersonNotFoundException;
 import com.education.inout.InputParser;
 import com.education.inout.OutputBuilder;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class CommandInfo extends Command {
 
@@ -30,15 +30,15 @@ public class CommandInfo extends Command {
         // TODO пока что оставила как есть, буду думать дальше
         String name;
         Sex sex;
-        Date birthday;
+        LocalDate birthDate;
 
         synchronized (person) {
             name = person.getName();
             sex = person.getSex();
-            birthday = person.getBirthDate();
+            birthDate = person.getBirthDate();
         }
 
-        String info = OutputBuilder.getPersonInfo(id, name, sex, birthday);
+        String info = OutputBuilder.getPersonInfo(id, name, sex, birthDate);
 
         Start.controller.write(info);
 
