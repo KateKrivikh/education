@@ -3,6 +3,7 @@ package com.education.commands;
 import com.education.PersonRepository;
 import com.education.entities.Person;
 import com.education.exceptions.PersonNotFoundException;
+import com.education.exceptions.incorrectInput.IncorrectInputException;
 import com.education.inout.InputParser;
 
 public class CommandRemove extends Command {
@@ -14,7 +15,7 @@ public class CommandRemove extends Command {
     }
 
     @Override
-    public int execute(String[] args) throws PersonNotFoundException {
+    public int execute(String[] args) throws IncorrectInputException, PersonNotFoundException {
         InputParser.checkParametersCount(this, args);
 
         int id = InputParser.parseId(args[0]);

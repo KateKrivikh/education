@@ -31,7 +31,7 @@ public class InputParser {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_FOR_INPUT);
 
 
-    public static Operation parseOperation(String operationString) {
+    public static Operation parseOperation(String operationString) throws IncorrectOperationException {
         switch (operationString) {
             case PARAM_ADD:
                 return Operation.ADD;
@@ -45,14 +45,14 @@ public class InputParser {
         throw new IncorrectOperationException(operationString);
     }
 
-    public static void checkParametersCount(Command command, String[] args) {
+    public static void checkParametersCount(Command command, String[] args) throws IncorrectOperationParametersCountException {
         int parametersCount = command.getParametersCount();
 
         if (parametersCount != args.length)
-            throw new IncorrectOperationParametersCount(command, parametersCount);
+            throw new IncorrectOperationParametersCountException(command, parametersCount);
     }
 
-    public static int parseId(String idString) {
+    public static int parseId(String idString) throws IncorrectIdException {
         try {
             return Integer.parseInt(idString);
         } catch (NumberFormatException e) {
@@ -60,7 +60,7 @@ public class InputParser {
         }
     }
 
-    public static Sex parseSex(String sexString) {
+    public static Sex parseSex(String sexString) throws IncorrectSexException {
         switch (sexString) {
             case SEX_MALE:
                 return Sex.MALE;
@@ -70,7 +70,7 @@ public class InputParser {
         throw new IncorrectSexException(sexString, SEX_MALE + ", " + SEX_FEMALE);
     }
 
-    public static LocalDate parseDate(String birthDateString) {
+    public static LocalDate parseDate(String birthDateString) throws IncorrectDateException {
         try {
             return LocalDate.parse(birthDateString, formatter);
         } catch (DateTimeParseException e) {

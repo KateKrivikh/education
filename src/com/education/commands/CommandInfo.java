@@ -5,6 +5,7 @@ import com.education.Start;
 import com.education.entities.Person;
 import com.education.entities.Sex;
 import com.education.exceptions.PersonNotFoundException;
+import com.education.exceptions.incorrectInput.IncorrectInputException;
 import com.education.inout.InputParser;
 import com.education.inout.OutputBuilder;
 
@@ -19,7 +20,7 @@ public class CommandInfo extends Command {
     }
 
     @Override
-    public int execute(String[] args) throws PersonNotFoundException {
+    public int execute(String[] args) throws IncorrectInputException, PersonNotFoundException {
         InputParser.checkParametersCount(this, args);
 
         int id = InputParser.parseId(args[0]);
