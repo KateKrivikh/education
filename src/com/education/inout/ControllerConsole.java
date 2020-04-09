@@ -1,8 +1,8 @@
 package com.education.inout;
 
 import com.education.commands.Operation;
-import com.education.exceptions.ExitExpectedException;
-import com.education.exceptions.ExpectingCommandException;
+import com.education.exceptions.console.ExitExpectedException;
+import com.education.exceptions.console.ReadFromConsoleException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,12 +24,12 @@ public class ControllerConsole extends Controller {
     }
 
     @Override
-    public String[] getCommand() throws ExpectingCommandException {
+    public String[] getCommand() {
         try {
             String string = reader.readLine();
             return string.split("\\s");     // TODO name состоит из нескольких слов
         } catch (IOException e) {
-            throw new ExpectingCommandException(MESSAGE_EXCEPTION_EXPECTING_COMMAND);
+            throw new ReadFromConsoleException(MESSAGE_EXCEPTION_EXPECTING_COMMAND);
         }
     }
 

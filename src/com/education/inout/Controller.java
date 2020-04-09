@@ -3,16 +3,14 @@ package com.education.inout;
 import com.education.commands.Command;
 import com.education.commands.CommandFactory;
 import com.education.commands.Operation;
-import com.education.exceptions.ExpectingCommandException;
-import com.education.exceptions.IncorrectInputException;
 import com.education.exceptions.PersonNotFoundException;
 
 import java.util.Arrays;
 
 public abstract class Controller {
-    public abstract String[] getCommand() throws ExpectingCommandException;
+    public abstract String[] getCommand();
 
-    public void executeCommand(String[] args) throws IncorrectInputException, PersonNotFoundException {
+    public void executeCommand(String[] args) throws PersonNotFoundException {
         if (!actionsBeforeCommand(args))
             return;
 

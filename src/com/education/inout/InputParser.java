@@ -3,7 +3,7 @@ package com.education.inout;
 import com.education.commands.Command;
 import com.education.commands.Operation;
 import com.education.entities.Sex;
-import com.education.exceptions.IncorrectInputException;
+import com.education.exceptions.incorrectInput.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -30,14 +30,8 @@ public class InputParser {
     public static final String DATE_FORMAT_FOR_INPUT = "dd/MM/yyyy";
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_FOR_INPUT);
 
-    public static final String MESSAGE_PARSE_EXCEPTION_UNKNOWN_COMMAND = "Неизвестная команда: ";
-    public static final String MESSAGE_PARSE_EXCEPTION_WRONG_PARAMETERS_COUNT = "Неверное количество параметров для команды %s\nОжидаемое количество параметров: %d";
-    public static final String MESSAGE_PARSE_EXCEPTION_SEX = "Не удалось определить пол человека по параметру %s\nОжидаемый формат: \"%s\" или \"%s\"";
-    public static final String MESSAGE_PARSE_EXCEPTION_DATE = "Не удалось определить дату рождения по параметру %s\nОжидаемый формат: %s";
-    public static final String MESSAGE_PARSE_EXCEPTION_ID = "Не удалось определить идентификатор человека по параметру %s\nОжидаемый формат - целое число";
 
-
-    public static Operation parseOperation(String operationString) throws IncorrectInputException {
+    public static Operation parseOperation(String operationString) {
         switch (operationString) {
             case PARAM_ADD:
                 return Operation.ADD;
@@ -48,40 +42,42 @@ public class InputParser {
             case PARAM_INFO:
                 return Operation.INFO;
         }
-        throw new IncorrectInputException(MESSAGE_PARSE_EXCEPTION_UNKNOWN_COMMAND + operationString);
+        throw new IncorrectOperationException(operationString);
     }
 
-    public static void checkParametersCount(Command command, String[] args) throws IncorrectInputException {
+    public static void checkParametersCount(Command command, String[] args) {
         int parametersCount = command.getParametersCount();
 
         if (parametersCount != args.length)
-            throw new IncorrectInputException(String.format(MESSAGE_PARSE_EXCEPTION_WRONG_PARAMETERS_COUNT,
-                    command.getOperation(), parametersCount));
+            throw new IncorrectOperationParametersCount(command, parametersCount);
     }
 
-    public static int parseId(String idString) throws IncorrectInputException {
+    public static int parseId(String idString) {
         try {
             return Integer.parseInt(idString);
         } catch (NumberFormatException e) {
-            throw new IncorrectInputException(String.format(MESSAGE_PARSE_EXCEPTION_ID, idString));
+            throw new IncorrectIdException(idString);
         }
     }
 
-    public static Sex parseSex(String sexString) throws IncorrectInputException {
+    public static Sex parseSex(String sexString) {
         switch (sexString) {
             case SEX_MALE:
                 return Sex.MALE;
             case SEX_FEMALE:
                 return Sex.FEMALE;
         }
-        throw new IncorrectInputException(String.format(MESSAGE_PARSE_EXCEPTION_SEX, sexString, SEX_MALE, SEX_FEMALE));
+        // TODO Наверное, "м" и "ж" засунуть в enum.
+        // TODO Следовательно, не надо будет здесь передавать.
+        // TODO Соответственно при парсинге/форматировании брать из enum'a.
+        throw new IncorrectSexException(sexString, SEX_MALE + ", " + SEX_FEMALE);
     }
 
-    public static LocalDate parseDate(String birthDateString) throws IncorrectInputException {
+    public static LocalDate parseDate(String birthDateString) {
         try {
             return LocalDate.parse(birthDateString, formatter);
         } catch (DateTimeParseException e) {
-            throw new IncorrectInputException(String.format(MESSAGE_PARSE_EXCEPTION_DATE, birthDateString, DATE_FORMAT_FOR_INPUT));
+            throw new IncorrectDateException(birthDateString, DATE_FORMAT_FOR_INPUT);
         }
     }
 

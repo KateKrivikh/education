@@ -1,10 +1,9 @@
 package com.education.commands;
 
-import com.education.inout.InputParser;
-import com.education.entities.Person;
 import com.education.PersonRepository;
-import com.education.exceptions.IncorrectInputException;
+import com.education.entities.Person;
 import com.education.exceptions.PersonNotFoundException;
+import com.education.inout.InputParser;
 
 public class CommandRemove extends Command {
 
@@ -15,7 +14,7 @@ public class CommandRemove extends Command {
     }
 
     @Override
-    public int execute(String[] args) throws IncorrectInputException, PersonNotFoundException {
+    public int execute(String[] args) throws PersonNotFoundException {
         InputParser.checkParametersCount(this, args);
 
         int id = InputParser.parseId(args[0]);

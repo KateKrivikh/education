@@ -1,6 +1,5 @@
 package com.education.commands;
 
-import com.education.exceptions.IncorrectInputException;
 import com.education.exceptions.PersonNotFoundException;
 
 public abstract class Command {
@@ -20,6 +19,6 @@ public abstract class Command {
         return parametersCount;
     }
 
-    public abstract int execute(String[] args) throws IncorrectInputException, PersonNotFoundException;
+    public abstract int execute(String[] args) throws PersonNotFoundException;
 
 }

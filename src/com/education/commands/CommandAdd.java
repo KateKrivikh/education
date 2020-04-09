@@ -3,7 +3,6 @@ package com.education.commands;
 import com.education.PersonRepository;
 import com.education.entities.Person;
 import com.education.entities.Sex;
-import com.education.exceptions.IncorrectInputException;
 import com.education.inout.InputParser;
 
 import java.time.LocalDate;
@@ -17,7 +16,7 @@ public class CommandAdd extends Command {
     }
 
     @Override
-    public int execute(String[] args) throws IncorrectInputException {
+    public int execute(String[] args) {
         InputParser.checkParametersCount(this, args);
 
         String name = args[0];

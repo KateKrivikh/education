@@ -3,7 +3,7 @@ package com.education.tests;
 import com.education.PersonRepository;
 import com.education.entities.Person;
 import com.education.entities.Sex;
-import com.education.exceptions.IncorrectInputException;
+import com.education.exceptions.incorrectInput.IncorrectInputException;
 import com.education.exceptions.PersonNotFoundException;
 import com.education.inout.Controller;
 import com.education.inout.ControllerConsole;
