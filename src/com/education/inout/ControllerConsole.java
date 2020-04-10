@@ -1,8 +1,12 @@
 package com.education.inout;
 
+import com.education.commands.Command;
+import com.education.commands.CommandPerson;
 import com.education.commands.Operation;
 import com.education.exceptions.console.ExitExpectedException;
 import com.education.exceptions.console.ReadFromConsoleException;
+import com.education.exceptions.incorrectInput.IncorrectInputException;
+import com.education.exceptions.incorrectInput.IncorrectOperationException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,36 +28,32 @@ public class ControllerConsole extends Controller {
     }
 
     @Override
-    public String[] getCommand() throws ReadFromConsoleException {
+    public String getCommandString() throws ReadFromConsoleException {
         try {
-            String string = reader.readLine();
-            return string.split("\\s");     // TODO name состоит из нескольких слов
+            return reader.readLine();
         } catch (IOException e) {
             throw new ReadFromConsoleException(MESSAGE_EXCEPTION_EXPECTING_COMMAND);
         }
     }
 
     @Override
-    public boolean actionsBeforeCommand(String[] args) {
-        if (args.length == 0)
-            return false;
-
-        if (isExit(args[0])) {
-            beforeExit();
-            throw new ExitExpectedException();
+    public Command parseCommand(String commandString) throws IncorrectInputException, ExitExpectedException {
+        try {
+            return super.parseCommand(commandString);
+        } catch (IncorrectOperationException e) {
+            if (isExit(commandString)) {
+                return this.new ConsoleCommandQuit();
+            } else if (isHelp(commandString)) {
+                return this.new ConsoleCommandHelp();
+            } else
+                throw e;
         }
-
-        if (isHelp(args[0])) {
-            write(MESSAGE_HELP);
-            return false;
-        }
-        return true;
     }
 
     @Override
-    public void actionsAfterCommand(Operation operation, int id) {
-        if (operation.equals(Operation.ADD))
-            write(MESSAGE_ADD + id);
+    public void actionsAfterCommand(Command command) {
+        if (command instanceof CommandPerson && ((CommandPerson) command).getOperation().equals(Operation.ADD))
+            write(MESSAGE_ADD + ((CommandPerson) command).getId());
     }
 
     @Override
@@ -61,6 +61,15 @@ public class ControllerConsole extends Controller {
         System.out.println(info);
     }
 
+
+
+    private boolean isHelp(String operationString) {
+        return COMMAND_HELP.equals(operationString);
+    }
+
+    private boolean isExit(String commandString) {
+        return COMMAND_QUIT.equals(commandString);
+    }
 
     private void beforeExit() {
         try {
@@ -70,11 +79,18 @@ public class ControllerConsole extends Controller {
     }
 
 
-    private boolean isExit(String operationString) {
-        return COMMAND_QUIT.equals(operationString);
+    public class ConsoleCommandQuit extends Command {
+        @Override
+        public void execute() throws ExitExpectedException {
+            beforeExit();
+            throw new ExitExpectedException();
+        }
     }
 
-    private boolean isHelp(String operationString) {
-        return COMMAND_HELP.equals(operationString);
+    public class ConsoleCommandHelp extends Command {
+        @Override
+        public void execute() {
+            write(MESSAGE_HELP);
+        }
     }
 }

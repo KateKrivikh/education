@@ -1,5 +1,6 @@
 package com.education;
 
+import com.education.commands.Command;
 import com.education.exceptions.domain.DomainExceptions;
 import com.education.exceptions.InOutException;
 import com.education.exceptions.console.ExitExpectedException;
@@ -28,7 +29,8 @@ public class Start {
     public static void main(String[] args) {
         while (true) {
             try {
-                String[] command = controller.getCommand();
+                String commandString = controller.getCommandString();
+                Command command = controller.parseCommand(commandString);
                 controller.executeCommand(command);
             } catch (ExitExpectedException e) {
                 break;

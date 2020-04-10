@@ -6,9 +6,7 @@ import com.education.entities.Sex;
 import com.education.exceptions.incorrectInput.IncorrectInputException;
 import com.education.inout.InputParser;
 
-import java.time.LocalDate;
-
-public class CommandAdd extends Command {
+public class CommandAdd extends CommandPerson {
 
     public static final int PARAMETERS_COUNT = 3;
 
@@ -17,13 +15,16 @@ public class CommandAdd extends Command {
     }
 
     @Override
-    public int execute(String[] args) throws IncorrectInputException {
-        InputParser.checkParametersCount(this, args);
+    public void setParameters(String... parameters) throws IncorrectInputException {
+        InputParser.checkParametersCount(this, parameters);
 
-        String name = args[0];
-        Sex sex = InputParser.parseSex(args[1]);
-        LocalDate birthDate = InputParser.parseDate(args[2]);
+        name = parameters[0];
+        sex = InputParser.parseSex(parameters[1]);
+        birthDate = InputParser.parseDate(parameters[2]);
+    }
 
+    @Override
+    public void execute() {
         Person person;
         // TODO либо добавить дополнительные поля для мужчин и для женщин и сделать фабрику
         // TODO либо один конструктор
@@ -34,6 +35,6 @@ public class CommandAdd extends Command {
 
         PersonRepository.save(person);
 
-        return person.getId();
+        id = person.getId();
     }
 }

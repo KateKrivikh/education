@@ -2,14 +2,11 @@ package com.education.commands;
 
 import com.education.PersonRepository;
 import com.education.entities.Person;
-import com.education.entities.Sex;
 import com.education.exceptions.domain.DomainExceptions;
 import com.education.exceptions.incorrectInput.IncorrectInputException;
 import com.education.inout.InputParser;
 
-import java.time.LocalDate;
-
-public class CommandUpdate extends Command {
+public class CommandUpdate extends CommandPerson {
 
     public static final int PARAMETERS_COUNT = 4;
 
@@ -18,14 +15,17 @@ public class CommandUpdate extends Command {
     }
 
     @Override
-    public int execute(String[] args) throws IncorrectInputException, DomainExceptions {
-        InputParser.checkParametersCount(this, args);
+    public void setParameters(String... parameters) throws IncorrectInputException {
+        InputParser.checkParametersCount(this, parameters);
 
-        int id = InputParser.parseId(args[0]);
-        String name = args[1];
-        Sex sex = InputParser.parseSex(args[2]);
-        LocalDate birthDate = InputParser.parseDate(args[3]);
+        id = InputParser.parseId(parameters[0]);
+        name = parameters[1];
+        sex = InputParser.parseSex(parameters[2]);
+        birthDate = InputParser.parseDate(parameters[3]);
+    }
 
+    @Override
+    public void execute() throws DomainExceptions {
         Person person = PersonRepository.getById(id);
 
         // TODO пока что оставила как есть, буду думать дальше
@@ -34,7 +34,5 @@ public class CommandUpdate extends Command {
             person.setSex(sex);
             person.setBirthDate(birthDate);
         }
-
-        return id;
     }
 }

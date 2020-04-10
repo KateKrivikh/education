@@ -11,7 +11,7 @@ import com.education.inout.OutputBuilder;
 
 import java.time.LocalDate;
 
-public class CommandInfo extends Command {
+public class CommandInfo extends CommandPerson {
 
     public static final int PARAMETERS_COUNT = 1;
 
@@ -20,11 +20,13 @@ public class CommandInfo extends Command {
     }
 
     @Override
-    public int execute(String[] args) throws IncorrectInputException, DomainExceptions {
-        InputParser.checkParametersCount(this, args);
+    public void setParameters(String... parameters) throws IncorrectInputException {
+        InputParser.checkParametersCount(this, parameters);
+        id = InputParser.parseId(parameters[0]);
+    }
 
-        int id = InputParser.parseId(args[0]);
-
+    @Override
+    public void execute() throws DomainExceptions {
         Person person = PersonRepository.getById(id);
 
         // TODO пока что оставила как есть, буду думать дальше
@@ -41,7 +43,5 @@ public class CommandInfo extends Command {
         String info = OutputBuilder.getPersonInfo(id, name, sex, birthDate);
 
         Start.controller.write(info);
-
-        return id;
     }
 }

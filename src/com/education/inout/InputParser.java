@@ -1,6 +1,6 @@
 package com.education.inout;
 
-import com.education.commands.Command;
+import com.education.commands.CommandPerson;
 import com.education.commands.Operation;
 import com.education.entities.Sex;
 import com.education.exceptions.incorrectInput.*;
@@ -45,10 +45,10 @@ public class InputParser {
         throw new IncorrectOperationException(operationString);
     }
 
-    public static void checkParametersCount(Command command, String[] args) throws IncorrectOperationParametersCountException {
+    public static void checkParametersCount(CommandPerson command, String... parameters) throws IncorrectOperationParametersCountException {
         int parametersCount = command.getParametersCount();
 
-        if (parametersCount != args.length)
+        if (parametersCount != parameters.length)
             throw new IncorrectOperationParametersCountException(command, parametersCount);
     }
 

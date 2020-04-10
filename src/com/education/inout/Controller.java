@@ -2,31 +2,47 @@ package com.education.inout;
 
 import com.education.commands.Command;
 import com.education.commands.CommandFactory;
+import com.education.commands.CommandPerson;
 import com.education.commands.Operation;
 import com.education.exceptions.InOutException;
 import com.education.exceptions.domain.DomainExceptions;
+import com.education.exceptions.incorrectInput.EmptyOperationException;
+import com.education.exceptions.incorrectInput.IncorrectInputException;
 
 import java.util.Arrays;
 
 public abstract class Controller {
-    public abstract String[] getCommand();
+    public abstract String getCommandString();
 
-    public void executeCommand(String[] args) throws InOutException, DomainExceptions {
-        if (!actionsBeforeCommand(args))
-            return;
+    public Command parseCommand(String commandString) throws IncorrectInputException {
+        if (commandString == null || commandString.isEmpty())
+            throw new EmptyOperationException();
 
-        Operation operation = InputParser.parseOperation(args[0]);
-        Command command = CommandFactory.create(operation);
-        int id = command.execute(Arrays.copyOfRange(args, 1, args.length));
+        String[] words = commandString.split("\\s");// TODO name состоит из нескольких слов
 
-        actionsAfterCommand(operation, id);
+        Operation operation = InputParser.parseOperation(words[0]);
+        CommandPerson command = CommandFactory.create(operation);
+
+        String[] commandParameters = Arrays.copyOfRange(words, 1, words.length);
+        command.setParameters(commandParameters);
+
+        return command;
     }
 
-    public boolean actionsBeforeCommand(String[] args) {
+    public void executeCommand(Command command) throws InOutException, DomainExceptions {
+        if (!actionsBeforeCommand(command))
+            return;
+
+        command.execute();
+
+        actionsAfterCommand(command);
+    }
+
+    public boolean actionsBeforeCommand(Command command) {
         return true;
     }
 
-    public abstract void actionsAfterCommand(Operation operation, int id);
+    public abstract void actionsAfterCommand(Command command);
 
     public abstract void write(String info);
 }

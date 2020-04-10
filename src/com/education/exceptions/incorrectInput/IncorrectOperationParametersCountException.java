@@ -1,6 +1,6 @@
 package com.education.exceptions.incorrectInput;
 
-import com.education.commands.Command;
+import com.education.commands.CommandPerson;
 
 public class IncorrectOperationParametersCountException extends IncorrectInputException {
     public static final String MESSAGE_PARSE_EXCEPTION_WRONG_PARAMETERS_COUNT =
@@ -10,7 +10,7 @@ public class IncorrectOperationParametersCountException extends IncorrectInputEx
         super(message);
     }
 
-    public IncorrectOperationParametersCountException(Command command, int parametersCount) {
+    public IncorrectOperationParametersCountException(CommandPerson command, int parametersCount) {
         this(String.format(MESSAGE_PARSE_EXCEPTION_WRONG_PARAMETERS_COUNT,
                 command.getOperation(), parametersCount));
     }

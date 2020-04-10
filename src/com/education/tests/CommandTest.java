@@ -1,6 +1,7 @@
 package com.education.tests;
 
 import com.education.PersonRepository;
+import com.education.commands.Command;
 import com.education.entities.Person;
 import com.education.entities.Sex;
 import com.education.exceptions.domain.DomainExceptions;
@@ -51,13 +52,14 @@ public class CommandTest {
         fillData();
         List<Person> initial = PersonRepository.getAll();
 
-        String name = "Семенов Семен";
+        String name = "Семенов";
         String sex = "м";
         String date = "24/03/1999";
 
-        String[] args = {"-c", name, sex, date};
+        String commandString = "-c" + " " + name + " " + sex + " " + date;
         try {
-            controller.executeCommand(args);
+            Command command = controller.parseCommand(commandString);
+            controller.executeCommand(command);
         } catch (IncorrectInputException | DomainExceptions e) {
             controller.write(e.getMessage());
         }
@@ -81,13 +83,14 @@ public class CommandTest {
         List<Person> initial = PersonRepository.getAll();
 
         String id = String.valueOf(initial.get(1).getId());
-        String name = "Семенов Семен";
+        String name = "Семенов";
         String sex = "м";
         String date = "24/03/1999";
 
-        String[] args = {"-u", id, name, sex, date};
+        String commandString = "-u" + " " + id + " " + name + " " + sex + " " + date;
         try {
-            controller.executeCommand(args);
+            Command command = controller.parseCommand(commandString);
+            controller.executeCommand(command);
         } catch (IncorrectInputException | DomainExceptions e) {
             controller.write(e.getMessage());
         }
@@ -112,9 +115,11 @@ public class CommandTest {
         List<Person> initial = PersonRepository.getAll();
 
         String id = String.valueOf(initial.get(1).getId());
-        String[] args = {"-d", id};
+
+        String commandString = "-d" + " " + id;
         try {
-            controller.executeCommand(args);
+            Command command = controller.parseCommand(commandString);
+            controller.executeCommand(command);
         } catch (IncorrectInputException | DomainExceptions e) {
             controller.write(e.getMessage());
         }
@@ -138,9 +143,11 @@ public class CommandTest {
         List<Person> initial = PersonRepository.getAll();
 
         String id = String.valueOf(initial.get(1).getId());
-        String[] args = {"-i", id};
+
+        String commandString = "-i" + " " + id;
         try {
-            controller.executeCommand(args);
+            Command command = controller.parseCommand(commandString);
+            controller.executeCommand(command);
         } catch (IncorrectInputException | DomainExceptions e) {
             controller.write(e.getMessage());
         }

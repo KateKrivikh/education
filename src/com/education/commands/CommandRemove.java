@@ -6,7 +6,7 @@ import com.education.exceptions.domain.DomainExceptions;
 import com.education.exceptions.incorrectInput.IncorrectInputException;
 import com.education.inout.InputParser;
 
-public class CommandRemove extends Command {
+public class CommandRemove extends CommandPerson {
 
     public static final int PARAMETERS_COUNT = 1;
 
@@ -15,11 +15,13 @@ public class CommandRemove extends Command {
     }
 
     @Override
-    public int execute(String[] args) throws IncorrectInputException, DomainExceptions {
-        InputParser.checkParametersCount(this, args);
+    public void setParameters(String... parameters) throws IncorrectInputException {
+        InputParser.checkParametersCount(this, parameters);
+        id = InputParser.parseId(parameters[0]);
+    }
 
-        int id = InputParser.parseId(args[0]);
-
+    @Override
+    public void execute() throws DomainExceptions {
         Person person = PersonRepository.getById(id);
 
         // TODO пока что оставила как есть, буду думать дальше
@@ -28,7 +30,5 @@ public class CommandRemove extends Command {
             person.setSex(null);
             person.setBirthDate(null);
         }
-
-        return id;
     }
 }
