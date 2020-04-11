@@ -6,7 +6,7 @@ import main.java.com.education.controller.commands.Operation;
 import main.java.com.education.exceptions.domain.DomainExceptions;
 import main.java.com.education.controller.commands.CommandPerson;
 import main.java.com.education.exceptions.inout.InOutException;
-import main.java.com.education.exceptions.inout.incorrectInput.EmptyOperationException;
+import main.java.com.education.exceptions.inout.incorrectInput.EmptyCommandException;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
 import main.java.com.education.util.InputParser;
 
@@ -16,8 +16,8 @@ public abstract class Controller {
     public abstract String getCommandString();
 
     public Command parseCommand(String commandString) throws IncorrectInputException {
-        if (commandString == null || commandString.isEmpty())
-            throw new EmptyOperationException();
+        if (commandString == null || commandString.trim().isEmpty())
+            throw new EmptyCommandException();
 
         String[] words = commandString.split("\\s");// TODO name состоит из нескольких слов
 

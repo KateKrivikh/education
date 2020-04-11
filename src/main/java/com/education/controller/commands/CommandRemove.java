@@ -16,7 +16,7 @@ public class CommandRemove extends CommandPerson {
 
     @Override
     public void setParameters(String... parameters) throws IncorrectInputException {
-        InputParser.checkParametersCount(this, parameters);
+        InputParser.checkParametersCount(getParametersCount(), parameters);
         id = InputParser.parseId(parameters[0]);
     }
 

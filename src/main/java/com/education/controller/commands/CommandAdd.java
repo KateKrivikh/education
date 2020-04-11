@@ -16,7 +16,7 @@ public class CommandAdd extends CommandPerson {
 
     @Override
     public void setParameters(String... parameters) throws IncorrectInputException {
-        InputParser.checkParametersCount(this, parameters);
+        InputParser.checkParametersCount(getParametersCount(), parameters);
 
         name = parameters[0];
         sex = InputParser.parseSex(parameters[1]);
