@@ -42,6 +42,7 @@ public class PersonCommandInfo extends PersonCommand {
 
         String info = OutputBuilder.getPersonInfo(id, name, sex, birthDate);
 
+        // TODO подумать
         Start.controller.write(info);
     }
 }
