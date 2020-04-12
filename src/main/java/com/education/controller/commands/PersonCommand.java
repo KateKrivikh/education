@@ -6,7 +6,7 @@ import main.java.com.education.entities.Sex;
 
 import java.time.LocalDate;
 
-public abstract class CommandPerson extends Command {
+public abstract class PersonCommand implements Command {
     private Operation operation;
     private int parametersCount;
 
@@ -15,7 +15,7 @@ public abstract class CommandPerson extends Command {
     protected Sex sex;
     protected LocalDate birthDate;
 
-    public CommandPerson(Operation operation, int parametersCount) throws OperationIsEmptyException {
+    public PersonCommand(Operation operation, int parametersCount) throws OperationIsEmptyException {
         if (operation == null)
             throw new OperationIsEmptyException();
 

@@ -11,11 +11,11 @@ import main.java.com.education.util.OutputBuilder;
 
 import java.time.LocalDate;
 
-public class CommandInfo extends CommandPerson {
+public class PersonCommandInfo extends PersonCommand {
 
     public static final int PARAMETERS_COUNT = 1;
 
-    public CommandInfo(Operation operation) {
+    public PersonCommandInfo(Operation operation) {
         super(operation, PARAMETERS_COUNT);
     }
 

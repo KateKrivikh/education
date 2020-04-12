@@ -6,11 +6,11 @@ import main.java.com.education.entities.Sex;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
 import main.java.com.education.util.InputParser;
 
-public class CommandAdd extends CommandPerson {
+public class PersonCommandAdd extends PersonCommand {
 
     public static final int PARAMETERS_COUNT = 3;
 
-    public CommandAdd(Operation operation) {
+    public PersonCommandAdd(Operation operation) {
         super(operation, PARAMETERS_COUNT);
     }
 

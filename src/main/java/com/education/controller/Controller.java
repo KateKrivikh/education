@@ -4,7 +4,7 @@ import main.java.com.education.controller.commands.Command;
 import main.java.com.education.controller.commands.CommandFactory;
 import main.java.com.education.controller.commands.Operation;
 import main.java.com.education.exceptions.domain.DomainExceptions;
-import main.java.com.education.controller.commands.CommandPerson;
+import main.java.com.education.controller.commands.PersonCommand;
 import main.java.com.education.exceptions.inout.InOutException;
 import main.java.com.education.exceptions.inout.incorrectInput.EmptyCommandException;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
@@ -22,7 +22,7 @@ public abstract class Controller {
         String[] words = commandString.split("\\s");// TODO name состоит из нескольких слов
 
         Operation operation = InputParser.parseOperation(words[0]);
-        CommandPerson command = CommandFactory.create(operation);
+        PersonCommand command = CommandFactory.create(operation);
 
         String[] commandParameters = Arrays.copyOfRange(words, 1, words.length);
         command.setParameters(commandParameters);

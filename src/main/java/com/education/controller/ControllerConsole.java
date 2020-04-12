@@ -2,7 +2,7 @@ package main.java.com.education.controller;
 
 import main.java.com.education.controller.commands.Command;
 import main.java.com.education.controller.commands.Operation;
-import main.java.com.education.controller.commands.CommandPerson;
+import main.java.com.education.controller.commands.PersonCommand;
 import main.java.com.education.exceptions.inout.console.ExitExpectedException;
 import main.java.com.education.exceptions.inout.console.ReadFromConsoleException;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
@@ -53,8 +53,8 @@ public class ControllerConsole extends Controller {
 
     @Override
     public void actionsAfterCommand(Command command) {
-        if (command instanceof CommandPerson && ((CommandPerson) command).getOperation().equals(Operation.ADD))
-            write(MESSAGE_ADD + ((CommandPerson) command).getId());
+        if (command instanceof PersonCommand && ((PersonCommand) command).getOperation().equals(Operation.ADD))
+            write(MESSAGE_ADD + ((PersonCommand) command).getId());
     }
 
     @Override
@@ -79,8 +79,9 @@ public class ControllerConsole extends Controller {
         }
     }
 
+    public abstract class ConsoleCommand implements Command {}
 
-    public class ConsoleCommandQuit extends Command {
+    public class ConsoleCommandQuit extends ConsoleCommand {
         @Override
         public void execute() throws ExitExpectedException {
             beforeExit();
@@ -88,7 +89,7 @@ public class ControllerConsole extends Controller {
         }
     }
 
-    public class ConsoleCommandHelp extends Command {
+    public class ConsoleCommandHelp extends ConsoleCommand {
         @Override
         public void execute() {
             write(MESSAGE_HELP);

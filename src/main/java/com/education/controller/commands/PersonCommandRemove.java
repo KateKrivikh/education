@@ -6,22 +6,18 @@ import main.java.com.education.exceptions.domain.DomainExceptions;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
 import main.java.com.education.util.InputParser;
 
-public class CommandUpdate extends CommandPerson {
+public class PersonCommandRemove extends PersonCommand {
 
-    public static final int PARAMETERS_COUNT = 4;
+    public static final int PARAMETERS_COUNT = 1;
 
-    public CommandUpdate(Operation operation) {
+    public PersonCommandRemove(Operation operation) {
         super(operation, PARAMETERS_COUNT);
     }
 
     @Override
     public void setParameters(String... parameters) throws IncorrectInputException {
         InputParser.checkParametersCount(getParametersCount(), parameters);
-
         id = InputParser.parseId(parameters[0]);
-        name = parameters[1];
-        sex = InputParser.parseSex(parameters[2]);
-        birthDate = InputParser.parseDate(parameters[3]);
     }
 
     @Override
@@ -30,9 +26,9 @@ public class CommandUpdate extends CommandPerson {
 
         // TODO пока что оставила как есть, буду думать дальше
         synchronized (person) {
-            person.setName(name);
-            person.setSex(sex);
-            person.setBirthDate(birthDate);
+            person.setName(null);
+            person.setSex(null);
+            person.setBirthDate(null);
         }
     }
 }

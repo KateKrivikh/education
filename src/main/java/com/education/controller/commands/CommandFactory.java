@@ -4,19 +4,19 @@ import main.java.com.education.exceptions.domain.OperationIsEmptyException;
 
 public class CommandFactory {
 
-    public static CommandPerson create(Operation operation) throws OperationIsEmptyException {
+    public static PersonCommand create(Operation operation) throws OperationIsEmptyException {
         if (operation == null)
             throw new OperationIsEmptyException();
 
         switch (operation) {
             case ADD:
-                return new CommandAdd(operation);
+                return new PersonCommandAdd(operation);
             case UPDATE:
-                return new CommandUpdate(operation);
+                return new PersonCommandUpdate(operation);
             case REMOVE:
-                return new CommandRemove(operation);
+                return new PersonCommandRemove(operation);
             case INFO:
-                return new CommandInfo(operation);
+                return new PersonCommandInfo(operation);
         }
         throw new OperationIsEmptyException();
     }
