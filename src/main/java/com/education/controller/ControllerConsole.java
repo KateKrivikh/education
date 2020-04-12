@@ -1,6 +1,6 @@
 package main.java.com.education.controller;
 
-import main.java.com.education.controller.commands.Command;
+import main.java.com.education.controller.command.Command;
 import main.java.com.education.exceptions.inout.console.ExitExpectedException;
 import main.java.com.education.exceptions.inout.console.ReadFromConsoleException;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;

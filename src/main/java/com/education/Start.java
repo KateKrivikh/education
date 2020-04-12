@@ -1,6 +1,6 @@
 package main.java.com.education;
 
-import main.java.com.education.controller.commands.Command;
+import main.java.com.education.controller.command.Command;
 import main.java.com.education.exceptions.inout.InOutException;
 import main.java.com.education.exceptions.domain.DomainExceptions;
 import main.java.com.education.controller.Controller;

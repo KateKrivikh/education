@@ -1,9 +1,9 @@
 package main.java.com.education.controller;
 
-import main.java.com.education.controller.commands.Command;
-import main.java.com.education.controller.commands.CommandFactory;
-import main.java.com.education.controller.commands.Operation;
-import main.java.com.education.controller.commands.PersonCommand;
+import main.java.com.education.controller.command.Command;
+import main.java.com.education.controller.command.CommandFactory;
+import main.java.com.education.controller.command.Operation;
+import main.java.com.education.controller.command.PersonCommand;
 import main.java.com.education.exceptions.domain.DomainExceptions;
 import main.java.com.education.exceptions.inout.incorrectInput.EmptyCommandException;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;

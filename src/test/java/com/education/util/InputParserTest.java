@@ -1,6 +1,6 @@
 package test.java.com.education.util;
 
-import main.java.com.education.controller.commands.Operation;
+import main.java.com.education.controller.command.Operation;
 import main.java.com.education.entities.Sex;
 import main.java.com.education.exceptions.inout.incorrectInput.*;
 import main.java.com.education.util.InputParser;

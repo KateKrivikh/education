@@ -1,7 +1,7 @@
 package test.java.com.education;
 
 import main.java.com.education.entities.PersonRepository;
-import main.java.com.education.controller.commands.Command;
+import main.java.com.education.controller.command.Command;
 import main.java.com.education.entities.Person;
 import main.java.com.education.entities.Sex;
 import main.java.com.education.exceptions.domain.DomainExceptions;

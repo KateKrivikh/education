@@ -1,4 +1,4 @@
-package main.java.com.education.controller.commands;
+package main.java.com.education.controller.command;
 
 import main.java.com.education.exceptions.domain.OperationIsEmptyException;
 
