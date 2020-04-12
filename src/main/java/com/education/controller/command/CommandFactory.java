@@ -10,13 +10,13 @@ public class CommandFactory {
 
         switch (operation) {
             case ADD:
-                return new PersonCommandAdd(operation);
+                return new PersonCommandAdd();
             case UPDATE:
-                return new PersonCommandUpdate(operation);
+                return new PersonCommandUpdate();
             case REMOVE:
-                return new PersonCommandRemove(operation);
+                return new PersonCommandRemove();
             case INFO:
-                return new PersonCommandInfo(operation);
+                return new PersonCommandInfo();
         }
         throw new OperationIsEmptyException();
     }

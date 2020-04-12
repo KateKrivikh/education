@@ -11,8 +11,8 @@ public class PersonCommandInfo extends PersonCommand {
 
     public static final int PARAMETERS_COUNT = 1;
 
-    public PersonCommandInfo(Operation operation) {
-        super(operation, PARAMETERS_COUNT);
+    public PersonCommandInfo() {
+        super(Operation.INFO, PARAMETERS_COUNT);
     }
 
     @Override

@@ -10,8 +10,8 @@ public class PersonCommandUpdate extends PersonCommand {
 
     public static final int PARAMETERS_COUNT = 4;
 
-    public PersonCommandUpdate(Operation operation) {
-        super(operation, PARAMETERS_COUNT);
+    public PersonCommandUpdate() {
+        super(Operation.UPDATE, PARAMETERS_COUNT);
     }
 
     @Override

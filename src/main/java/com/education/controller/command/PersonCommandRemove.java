@@ -10,8 +10,8 @@ public class PersonCommandRemove extends PersonCommand {
 
     public static final int PARAMETERS_COUNT = 1;
 
-    public PersonCommandRemove(Operation operation) {
-        super(operation, PARAMETERS_COUNT);
+    public PersonCommandRemove() {
+        super(Operation.REMOVE, PARAMETERS_COUNT);
     }
 
     @Override

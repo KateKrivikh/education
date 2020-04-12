@@ -11,8 +11,8 @@ public class PersonCommandAdd extends PersonCommand {
     public static final int PARAMETERS_COUNT = 3;
     public static final String MESSAGE_ADD = "Новый пользователь добавлен с идентификатором = ";
 
-    public PersonCommandAdd(Operation operation) {
-        super(operation, PARAMETERS_COUNT);
+    public PersonCommandAdd() {
+        super(Operation.ADD, PARAMETERS_COUNT);
     }
 
     @Override
