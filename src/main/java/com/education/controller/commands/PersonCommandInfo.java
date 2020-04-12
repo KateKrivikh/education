@@ -2,14 +2,10 @@ package main.java.com.education.controller.commands;
 
 import main.java.com.education.entities.Person;
 import main.java.com.education.entities.PersonRepository;
-import main.java.com.education.Start;
-import main.java.com.education.entities.Sex;
 import main.java.com.education.exceptions.domain.DomainExceptions;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
 import main.java.com.education.util.InputParser;
 import main.java.com.education.util.OutputBuilder;
-
-import java.time.LocalDate;
 
 public class PersonCommandInfo extends PersonCommand {
 
@@ -30,19 +26,12 @@ public class PersonCommandInfo extends PersonCommand {
         Person person = PersonRepository.getById(id);
 
         // TODO пока что оставила как есть, буду думать дальше
-        String name;
-        Sex sex;
-        LocalDate birthDate;
-
         synchronized (person) {
             name = person.getName();
             sex = person.getSex();
             birthDate = person.getBirthDate();
         }
 
-        String info = OutputBuilder.getPersonInfo(id, name, sex, birthDate);
-
-        // TODO подумать
-        Start.controller.write(info);
+        result = OutputBuilder.getPersonInfo(id, name, sex, birthDate);
     }
 }

@@ -1,8 +1,6 @@
 package main.java.com.education.controller;
 
 import main.java.com.education.controller.commands.Command;
-import main.java.com.education.controller.commands.Operation;
-import main.java.com.education.controller.commands.PersonCommand;
 import main.java.com.education.exceptions.inout.console.ExitExpectedException;
 import main.java.com.education.exceptions.inout.console.ReadFromConsoleException;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
@@ -19,7 +17,6 @@ public class ControllerConsole extends Controller {
     public static final String MESSAGE_HELP = InputParser.MESSAGE_OPERATIONS + "\n" +
             "-q                             - выход\n" +
             "-h                             - помощь";
-    public static final String MESSAGE_ADD = "Новый пользователь добавлен с идентификатором = ";
     public static final String MESSAGE_EXCEPTION_EXPECTING_COMMAND = "Ошибка при чтении команды из консоли";
 
     private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -56,12 +53,6 @@ public class ControllerConsole extends Controller {
         }
     }
 
-    @Override
-    public void actionsAfterExecuting(Command command) {
-        if (command instanceof PersonCommand && ((PersonCommand) command).getOperation().equals(Operation.ADD))
-            write(MESSAGE_ADD + ((PersonCommand) command).getId());
-    }
-
 
     private boolean isHelp(String operationString) {
         return COMMAND_HELP.equals(operationString);
@@ -78,7 +69,7 @@ public class ControllerConsole extends Controller {
         }
     }
 
-    public abstract class ConsoleCommand implements Command {
+    public abstract class ConsoleCommand extends Command {
     }
 
     public class ConsoleCommandQuit extends ConsoleCommand {

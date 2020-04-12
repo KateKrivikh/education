@@ -6,7 +6,7 @@ import main.java.com.education.entities.Sex;
 
 import java.time.LocalDate;
 
-public abstract class PersonCommand implements Command {
+public abstract class PersonCommand extends Command {
     private Operation operation;
     private int parametersCount;
 

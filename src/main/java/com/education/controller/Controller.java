@@ -44,6 +44,7 @@ public abstract class Controller {
     }
 
     public void actionsAfterExecuting(Command command) throws DomainExceptions {
-
+        if (command.getResult() != null)
+            write(command.getResult());
     }
 }
