@@ -58,8 +58,8 @@ public class CommandTest {
 
         String commandString = "-c" + " " + name + " " + sex + " " + date;
         try {
-            Command command = controller.parseCommand(commandString);
-            controller.executeCommand(command);
+            Command command = controller.parse(commandString);
+            controller.execute(command);
         } catch (IncorrectInputException | DomainExceptions e) {
             controller.write(e.getMessage());
         }
@@ -89,8 +89,8 @@ public class CommandTest {
 
         String commandString = "-u" + " " + id + " " + name + " " + sex + " " + date;
         try {
-            Command command = controller.parseCommand(commandString);
-            controller.executeCommand(command);
+            Command command = controller.parse(commandString);
+            controller.execute(command);
         } catch (IncorrectInputException | DomainExceptions e) {
             controller.write(e.getMessage());
         }
@@ -118,8 +118,8 @@ public class CommandTest {
 
         String commandString = "-d" + " " + id;
         try {
-            Command command = controller.parseCommand(commandString);
-            controller.executeCommand(command);
+            Command command = controller.parse(commandString);
+            controller.execute(command);
         } catch (IncorrectInputException | DomainExceptions e) {
             controller.write(e.getMessage());
         }
@@ -146,8 +146,8 @@ public class CommandTest {
 
         String commandString = "-i" + " " + id;
         try {
-            Command command = controller.parseCommand(commandString);
-            controller.executeCommand(command);
+            Command command = controller.parse(commandString);
+            controller.execute(command);
         } catch (IncorrectInputException | DomainExceptions e) {
             controller.write(e.getMessage());
         }

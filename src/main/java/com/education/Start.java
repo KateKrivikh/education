@@ -29,9 +29,9 @@ public class Start {
     public static void main(String[] args) {
         while (true) {
             try {
-                String commandString = controller.getCommandString();
-                Command command = controller.parseCommand(commandString);
-                controller.executeCommand(command);
+                String commandString = controller.read();
+                Command command = controller.parse(commandString);
+                controller.execute(command);
             } catch (ExitExpectedException e) {
                 break;
             } catch (InOutException | DomainExceptions e) {

@@ -29,7 +29,7 @@ public class ControllerConsole extends Controller {
     }
 
     @Override
-    public String getCommandString() throws ReadFromConsoleException {
+    public String read() throws ReadFromConsoleException {
         try {
             return reader.readLine();
         } catch (IOException e) {
@@ -38,9 +38,14 @@ public class ControllerConsole extends Controller {
     }
 
     @Override
-    public Command parseCommand(String commandString) throws IncorrectInputException, ExitExpectedException {
+    public void write(String info) {
+        System.out.println(info);
+    }
+
+    @Override
+    public Command parse(String commandString) throws IncorrectInputException, ExitExpectedException {
         try {
-            return super.parseCommand(commandString);
+            return super.parse(commandString);
         } catch (IncorrectOperationException e) {
             if (isExit(commandString)) {
                 return this.new ConsoleCommandQuit();
@@ -52,16 +57,10 @@ public class ControllerConsole extends Controller {
     }
 
     @Override
-    public void actionsAfterCommand(Command command) {
+    public void actionsAfterExecuting(Command command) {
         if (command instanceof PersonCommand && ((PersonCommand) command).getOperation().equals(Operation.ADD))
             write(MESSAGE_ADD + ((PersonCommand) command).getId());
     }
-
-    @Override
-    public void write(String info) {
-        System.out.println(info);
-    }
-
 
 
     private boolean isHelp(String operationString) {
@@ -79,7 +78,8 @@ public class ControllerConsole extends Controller {
         }
     }
 
-    public abstract class ConsoleCommand implements Command {}
+    public abstract class ConsoleCommand implements Command {
+    }
 
     public class ConsoleCommandQuit extends ConsoleCommand {
         @Override
