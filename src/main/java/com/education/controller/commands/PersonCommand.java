@@ -33,8 +33,4 @@ public abstract class PersonCommand extends Command {
         return parametersCount;
     }
 
-    public int getId() {
-        return id;
-    }
-
 }
