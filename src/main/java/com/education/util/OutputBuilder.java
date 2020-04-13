@@ -1,7 +1,8 @@
 package main.java.com.education.util;
 
 import main.java.com.education.entities.Sex;
-import com.sun.istack.internal.Nullable;
+import main.java.com.education.exceptions.domain.DateIsEmptyException;
+import main.java.com.education.exceptions.domain.SexIsEmptyException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +11,6 @@ import java.util.Locale;
 public class OutputBuilder {
     public static final String SEX_MALE = "м";
     public static final String SEX_FEMALE = "ж";
-    public static final String SEX_UNKNOWN = "";
 
     public static final String MESSAGE_INFO_FOR_REMOVED_PERSON = "Данные о человеке с id = %s удалены!";
     public static final String MESSAGE_INFO_DELIMITER = " ";
@@ -31,20 +31,30 @@ public class OutputBuilder {
     }
 
     private static String getPersonInfo(String name, Sex sex, LocalDate birthDate) {
-        return String.join(MESSAGE_INFO_DELIMITER, name, writeSex(sex), writeDate(birthDate));
+        String sexString = sex == null ? null : writeSex(sex);
+        String birthDateString = birthDate == null ? null : writeDate(birthDate);
+
+        return String.join(MESSAGE_INFO_DELIMITER, name, sexString, birthDateString);
     }
 
-    public static String writeSex(@Nullable Sex sex) {
+    public static String writeSex(Sex sex) throws SexIsEmptyException {
+        if (sex == null)
+            throw new SexIsEmptyException();
+
         switch (sex) {
             case MALE:
                 return SEX_MALE;
             case FEMALE:
                 return SEX_FEMALE;
         }
-        return SEX_UNKNOWN;
+
+        throw new SexIsEmptyException();
     }
 
-    public static String writeDate(LocalDate birthDate) {
-        return formatter.format(birthDate);
+    public static String writeDate(LocalDate date) throws DateIsEmptyException {
+        if (date == null)
+            throw new DateIsEmptyException();
+
+        return formatter.format(date);
     }
 }
