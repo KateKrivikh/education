@@ -54,4 +54,21 @@ public abstract class PersonCommand extends Command {
     public int hashCode() {
         return Objects.hash(result, parametersCount, operation, id, name, sex, birthDate);
     }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
 }

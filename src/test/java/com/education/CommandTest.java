@@ -27,9 +27,9 @@ public class CommandTest {
 
     public List<Person> getPeople() {
         try {
-            Person person1 = Person.createMale("Иванов Иван", LocalDate.parse("01/01/2000", formatter));
-            Person person2 = Person.createMale("Петров Петр", LocalDate.parse("03/03/2003", formatter));
-            Person person3 = Person.createMale("Сергеев Сергей", LocalDate.parse("05/05/2005", formatter));
+            Person person1 = new Person("Иванов Иван", Sex.MALE, LocalDate.parse("01/01/2000", formatter));
+            Person person2 = new Person("Петров Петр", Sex.MALE, LocalDate.parse("03/03/2003", formatter));
+            Person person3 = new Person("Сергеев Сергей", Sex.MALE, LocalDate.parse("05/05/2005", formatter));
 
             return Arrays.asList(person1, person2, person3);
         } catch (DateTimeParseException e) {

@@ -14,19 +14,11 @@ public class Person {
     private Sex sex;
     private LocalDate birthDate;
 
-    private Person(String name, Sex sex, LocalDate birthDate) {
+    public Person(String name, Sex sex, LocalDate birthDate) {
         this.name = name;
         this.sex = sex;
         this.birthDate = birthDate;
         this.id = ++countPerson;
-    }
-
-    public static Person createMale(String name, LocalDate birthDate) {
-        return new Person(name, Sex.MALE, birthDate);
-    }
-
-    public static Person createFemale(String name, LocalDate birthDate) {
-        return new Person(name, Sex.FEMALE, birthDate);
     }
 
     public int getId() {
