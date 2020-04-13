@@ -14,13 +14,9 @@ public class InputParser {
     public static final String PARAM_NAME_SEX = "sex";
     public static final String PARAM_NAME_DATE = "date";
 
-    // пример входных данных: -c Семенов м 24/03/1999
     public static final String PARAM_OPERATION_ADD = "-c";
-    // пример входных данных: -u 2 Семенов м 25/02/2001
     public static final String PARAM_OPERATION_UPDATE = "-u";
-    // пример входных данных: -d 2
     public static final String PARAM_OPERATION_REMOVE = "-d";
-    // пример входных данных: -i 2
     public static final String PARAM_OPERATION_INFO = "-i";
 
     public static final String PARAM_SEX_MALE = "м";
