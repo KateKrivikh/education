@@ -36,6 +36,8 @@ public class Start {
                 break;
             } catch (InOutException | DomainExceptions e) {
                 controller.write(e.getMessage());
+                if (e.getCause() != null)
+                    controller.write(e.getCause().getMessage());
             }
         }
     }

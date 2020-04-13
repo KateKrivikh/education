@@ -9,6 +9,7 @@ public class PersonCommandAdd extends PersonCommand {
 
     public static final int PARAMETERS_COUNT = 3;
     public static final String MESSAGE_ADD = "Новый пользователь добавлен с идентификатором = %d";
+    public static final String MESSAGE_ADD_EXCEPTION = "Ошибка при операции ADD";
 
     public PersonCommandAdd() {
         super(Operation.ADD, PARAMETERS_COUNT);
@@ -16,11 +17,15 @@ public class PersonCommandAdd extends PersonCommand {
 
     @Override
     public void setParameters(String... parameters) throws IncorrectInputException {
-        InputParser.checkParametersCount(getParametersCount(), parameters);
+        try {
+            InputParser.checkParametersCount(getParametersCount(), parameters);
 
-        name = parameters[0];
-        sex = InputParser.parseSex(parameters[1]);
-        birthDate = InputParser.parseDate(parameters[2]);
+            name = parameters[0];
+            sex = InputParser.parseSex(parameters[1]);
+            birthDate = InputParser.parseDate(parameters[2]);
+        } catch (IncorrectInputException e) {
+            throw new IncorrectInputException(MESSAGE_ADD_EXCEPTION, e);
+        }
     }
 
     @Override

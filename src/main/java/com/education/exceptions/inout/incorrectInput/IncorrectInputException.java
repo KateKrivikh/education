@@ -13,4 +13,8 @@ public class IncorrectInputException extends InOutException {
     public IncorrectInputException(String message) {
         super(message);
     }
+
+    public IncorrectInputException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

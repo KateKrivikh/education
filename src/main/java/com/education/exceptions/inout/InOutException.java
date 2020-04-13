@@ -14,6 +14,10 @@ public class InOutException extends RuntimeException {
         super(message);
     }
 
+    public InOutException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(getMessage());

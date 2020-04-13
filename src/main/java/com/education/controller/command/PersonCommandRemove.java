@@ -9,6 +9,7 @@ import main.java.com.education.util.InputParser;
 public class PersonCommandRemove extends PersonCommand {
 
     public static final int PARAMETERS_COUNT = 1;
+    public static final String MESSAGE_REMOVE_EXCEPTION = "Ошибка при операции REMOVE";
 
     public PersonCommandRemove() {
         super(Operation.REMOVE, PARAMETERS_COUNT);
@@ -16,8 +17,12 @@ public class PersonCommandRemove extends PersonCommand {
 
     @Override
     public void setParameters(String... parameters) throws IncorrectInputException {
-        InputParser.checkParametersCount(getParametersCount(), parameters);
-        id = InputParser.parseId(parameters[0]);
+        try {
+            InputParser.checkParametersCount(getParametersCount(), parameters);
+            id = InputParser.parseId(parameters[0]);
+        } catch (IncorrectInputException e) {
+            throw new IncorrectInputException(MESSAGE_REMOVE_EXCEPTION, e);
+        }
     }
 
     @Override
