@@ -34,7 +34,7 @@ public class OutputBuilder {
         return String.join(MESSAGE_INFO_DELIMITER, name, writeSex(sex), writeDate(birthDate));
     }
 
-    private static String writeSex(@Nullable Sex sex) {
+    public static String writeSex(@Nullable Sex sex) {
         switch (sex) {
             case MALE:
                 return SEX_MALE;
@@ -44,7 +44,7 @@ public class OutputBuilder {
         return SEX_UNKNOWN;
     }
 
-    private static String writeDate(LocalDate birthDate) {
+    public static String writeDate(LocalDate birthDate) {
         return formatter.format(birthDate);
     }
 }
