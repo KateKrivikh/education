@@ -2,9 +2,9 @@ package main.java.com.education.exceptions.inout.incorrectInput;
 
 public class EmptyParameterException extends IncorrectInputException {
 
-    public static final String MESSAGE_PARSE_EXCEPTION_EMPTY_PARAMETER = "Пустой параметр: ";
+    public static final String MESSAGE_PARSE_EXCEPTION_EMPTY_PARAMETER = "Пустой параметр: %s";
 
-    public EmptyParameterException(String message) {
-        super(MESSAGE_PARSE_EXCEPTION_EMPTY_PARAMETER + message);
+    public EmptyParameterException(String parameterName) {
+        super(String.format(MESSAGE_PARSE_EXCEPTION_EMPTY_PARAMETER, parameterName));
     }
 }
