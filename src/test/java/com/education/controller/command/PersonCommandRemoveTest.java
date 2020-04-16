@@ -4,37 +4,17 @@ import main.java.com.education.controller.command.PersonCommand;
 import main.java.com.education.controller.command.PersonCommandRemove;
 import main.java.com.education.entities.Person;
 import main.java.com.education.entities.PersonRepository;
-import main.java.com.education.entities.Sex;
 import main.java.com.education.exceptions.domain.PersonNotFoundException;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectIdException;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectOperationParametersCountException;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
+import test.java.com.education.UtilTest;
 
 public class PersonCommandRemoveTest {
 
     public static final String MESSAGE_INCORRECT_INPUT_EXCEPTION = PersonCommandRemove.MESSAGE_REMOVE_EXCEPTION;
-
-    private List<Person> getPeople() {
-        Person person1 = new Person("Иванов Иван", Sex.MALE, LocalDate.of(2000, 1, 1));
-        Person person2 = new Person(null, null, null);
-
-        return Arrays.asList(person1, person2);
-    }
-
-    private void fillData() {
-        List<Person> all = getPeople();
-
-        PersonRepository.clear();
-        for (Person person : all) {
-            PersonRepository.save(person);
-        }
-    }
 
     @Test
     public void setParameters() {
@@ -110,12 +90,12 @@ public class PersonCommandRemoveTest {
 
     @Test
     public void executeExisting() {
-        fillData();
+        UtilTest.fillPerson();
 
         int expectedSize = PersonRepository.getAll().size();
-        int first = getFirstInThisIteration();
+        int minId = UtilTest.getMinPersonId();
 
-        int id = first;
+        int id = minId;
         String idString = String.valueOf(id);
 
         String[] parameters = {idString};
@@ -142,12 +122,12 @@ public class PersonCommandRemoveTest {
 
     @Test
     public void executeRemoved() {
-        fillData();
+        UtilTest.fillPerson();
 
         int expectedSize = PersonRepository.getAll().size();
-        int first = getFirstInThisIteration();
+        int minId = UtilTest.getMinPersonId();
 
-        int id = first + 1;
+        int id = minId + 1;
         String idString = String.valueOf(id);
 
         String[] parameters = {idString};
@@ -174,12 +154,12 @@ public class PersonCommandRemoveTest {
 
     @Test
     public void executePersonNotFound() {
-        fillData();
+        UtilTest.fillPerson();
 
         int expectedSize = PersonRepository.getAll().size();
-        int first = getFirstInThisIteration();
+        int minId = UtilTest.getMinPersonId();
 
-        int id = first + 4;
+        int id = minId + 4;
         String idString = String.valueOf(id);
 
         String[] parameters = {idString};
@@ -203,8 +183,4 @@ public class PersonCommandRemoveTest {
         Assert.assertNull(command.getResult());
     }
 
-
-    private int getFirstInThisIteration() {
-        return PersonRepository.getAll().stream().map(Person::getId).min(Integer::compareTo).orElse(0);
-    }
 }

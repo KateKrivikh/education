@@ -12,30 +12,13 @@ import main.java.com.education.exceptions.inout.incorrectInput.IncorrectOperatio
 import main.java.com.education.util.InputParser;
 import org.junit.Assert;
 import org.junit.Test;
+import test.java.com.education.UtilTest;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 
 public class PersonCommandUpdateTest {
 
     public static final String MESSAGE_INCORRECT_INPUT_EXCEPTION = PersonCommandUpdate.MESSAGE_UPDATE_EXCEPTION;
-
-    private List<Person> getPeople() {
-        Person person1 = new Person("Иванов Иван", Sex.MALE, LocalDate.of(2000, 1, 1));
-        Person person2 = new Person(null, null, null);
-
-        return Arrays.asList(person1, person2);
-    }
-
-    private void fillData() {
-        List<Person> all = getPeople();
-
-        PersonRepository.clear();
-        for (Person person : all) {
-            PersonRepository.save(person);
-        }
-    }
 
     @Test
     public void setParameters() {
@@ -125,12 +108,12 @@ public class PersonCommandUpdateTest {
 
     @Test
     public void executeExisting() {
-        fillData();
+        UtilTest.fillPerson();
 
         int expectedSize = PersonRepository.getAll().size();
-        int first = getFirstInThisIteration();
+        int minId = UtilTest.getMinPersonId();
 
-        int id = first;
+        int id = minId;
         String idString = String.valueOf(id);
         String name = "Сидоров";
         Sex sex = Sex.MALE;
@@ -162,12 +145,12 @@ public class PersonCommandUpdateTest {
 
     @Test
     public void executeRemoved() {
-        fillData();
+        UtilTest.fillPerson();
 
         int expectedSize = PersonRepository.getAll().size();
-        int first = getFirstInThisIteration();
+        int minId = UtilTest.getMinPersonId();
 
-        int id = first + 1;
+        int id = minId + 1;
         String idString = String.valueOf(id);
         String name = "Сидоров";
         Sex sex = Sex.MALE;
@@ -199,12 +182,12 @@ public class PersonCommandUpdateTest {
 
     @Test
     public void executePersonNotFound() {
-        fillData();
+        UtilTest.fillPerson();
 
         int expectedSize = PersonRepository.getAll().size();
-        int first = getFirstInThisIteration();
+        int minId = UtilTest.getMinPersonId();
 
-        int id = first + 4;
+        int id = minId + 4;
         String idString = String.valueOf(id);
         String name = "Сидоров";
         String sexString = InputParser.PARAM_SEX_MALE;
@@ -231,8 +214,4 @@ public class PersonCommandUpdateTest {
         Assert.assertNull(command.getResult());
     }
 
-
-    private int getFirstInThisIteration() {
-        return PersonRepository.getAll().stream().map(Person::getId).min(Integer::compareTo).orElse(0);
-    }
 }
