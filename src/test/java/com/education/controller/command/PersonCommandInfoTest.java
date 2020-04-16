@@ -28,7 +28,7 @@ public class PersonCommandInfoTest {
         try {
             command.setParameters(parameters);
         } catch (IncorrectInputException e) {
-            Assert.fail("Возникло непредвиденное исключение");
+            Assert.fail("Unexpected exception");
             e.printStackTrace();
             return;
         }
@@ -45,7 +45,7 @@ public class PersonCommandInfoTest {
 
         try {
             command.setParameters(parameters);
-            Assert.fail("Должно быть исключение о неверности количества параметров");
+            Assert.fail("IncorrectInputException expected");
         } catch (IncorrectInputException actual) {
             IncorrectOperationParametersCountException cause = new IncorrectOperationParametersCountException(command.getParametersCount());
             IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
@@ -63,7 +63,7 @@ public class PersonCommandInfoTest {
 
         try {
             command.setParameters(parameters);
-            Assert.fail("Должно быть исключение о неверности количества параметров");
+            Assert.fail("IncorrectInputException expected");
         } catch (IncorrectInputException actual) {
             IncorrectOperationParametersCountException cause = new IncorrectOperationParametersCountException(command.getParametersCount());
             IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
@@ -80,7 +80,7 @@ public class PersonCommandInfoTest {
 
         try {
             command.setParameters(parameters);
-            Assert.fail("Должно быть исключение о неверности указанного пола");
+            Assert.fail("IncorrectInputException expected");
         } catch (IncorrectInputException actual) {
             IncorrectIdException cause = new IncorrectIdException(idStringWrong);
             IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
@@ -105,7 +105,7 @@ public class PersonCommandInfoTest {
         try {
             command.setParameters(parameters);
         } catch (IncorrectInputException e) {
-            Assert.fail("Возникло непредвиденное исключение");
+            Assert.fail("Unexpected exception");
             e.printStackTrace();
             return;
         }
@@ -136,7 +136,7 @@ public class PersonCommandInfoTest {
         try {
             command.setParameters(parameters);
         } catch (IncorrectInputException e) {
-            Assert.fail("Возникло непредвиденное исключение");
+            Assert.fail("Unexpected exception");
             e.printStackTrace();
             return;
         }
@@ -165,14 +165,14 @@ public class PersonCommandInfoTest {
         try {
             command.setParameters(parameters);
         } catch (IncorrectInputException e) {
-            Assert.fail("Возникло непредвиденное исключение");
+            Assert.fail("Unexpected exception");
             e.printStackTrace();
             return;
         }
 
         try {
             command.execute();
-            Assert.fail("Должно быть исключение о том, что не нашли человека");
+            Assert.fail("PersonNotFoundException expected");
         } catch (PersonNotFoundException actual) {
             PersonNotFoundException expected = new PersonNotFoundException(id);
             Assert.assertEquals(expected, actual);

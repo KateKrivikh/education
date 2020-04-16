@@ -32,7 +32,7 @@ public class PersonCommandAddTest {
         try {
             command.setParameters(parameters);
         } catch (IncorrectInputException e) {
-            Assert.fail("Возникло непредвиденное исключение");
+            Assert.fail("Unexpected exception");
             e.printStackTrace();
             return;
         }
@@ -51,7 +51,7 @@ public class PersonCommandAddTest {
 
         try {
             command.setParameters(parameters);
-            Assert.fail("Должно быть исключение о неверности количества параметров");
+            Assert.fail("IncorrectInputException expected");
         } catch (IncorrectInputException actual) {
             IncorrectOperationParametersCountException cause = new IncorrectOperationParametersCountException(command.getParametersCount());
             IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
@@ -71,7 +71,7 @@ public class PersonCommandAddTest {
 
         try {
             command.setParameters(parameters);
-            Assert.fail("Должно быть исключение о неверности количества параметров");
+            Assert.fail("IncorrectInputException expected");
         } catch (IncorrectInputException actual) {
             IncorrectOperationParametersCountException cause = new IncorrectOperationParametersCountException(command.getParametersCount());
             IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
@@ -90,7 +90,7 @@ public class PersonCommandAddTest {
 
         try {
             command.setParameters(parameters);
-            Assert.fail("Должно быть исключение о неверности указанного пола");
+            Assert.fail("IncorrectInputException expected");
         } catch (IncorrectInputException actual) {
             IncorrectSexException cause = new IncorrectSexException(sexStringWrong, InputParser.SEX_FORMATS_FOR_MESSAGE);
             IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
@@ -114,7 +114,7 @@ public class PersonCommandAddTest {
         try {
             command.setParameters(parameters);
         } catch (IncorrectInputException e) {
-            Assert.fail("Возникло непредвиденное исключение");
+            Assert.fail("Unexpected exception");
             e.printStackTrace();
             return;
         }

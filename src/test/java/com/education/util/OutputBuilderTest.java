@@ -102,7 +102,7 @@ public class OutputBuilderTest {
     public void writeSexNull() {
         try {
             OutputBuilder.writeSex(null);
-            Assert.fail("Должно выпасть исключение, что пол не указан");
+            Assert.fail("SexIsEmptyException expected");
         } catch (SexIsEmptyException actual) {
             SexIsEmptyException expected = new SexIsEmptyException();
             Assert.assertEquals(expected, actual);
@@ -121,6 +121,7 @@ public class OutputBuilderTest {
     public void writeDateNull() {
         try {
             OutputBuilder.writeDate(null);
+            Assert.fail("DateIsEmptyException expected");
         } catch (DateIsEmptyException actual) {
             DateIsEmptyException expected = new DateIsEmptyException();
             Assert.assertEquals(expected, actual);
