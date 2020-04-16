@@ -5,32 +5,32 @@ import main.java.com.education.exceptions.domain.OperationIsEmptyException;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class CommandFactoryTest {
+public class PersonCommandFactoryTest {
 
     @Test
     public void createAdd() {
-        PersonCommand actual = CommandFactory.create(Operation.ADD);
+        PersonCommand actual = PersonCommandFactory.create(Operation.ADD);
         PersonCommand expected = new PersonCommandAdd();
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void createUpdate() {
-        PersonCommand actual = CommandFactory.create(Operation.UPDATE);
+        PersonCommand actual = PersonCommandFactory.create(Operation.UPDATE);
         PersonCommand expected = new PersonCommandUpdate();
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void createRemove() {
-        PersonCommand actual = CommandFactory.create(Operation.REMOVE);
+        PersonCommand actual = PersonCommandFactory.create(Operation.REMOVE);
         PersonCommand expected = new PersonCommandRemove();
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void createInfo() {
-        PersonCommand actual = CommandFactory.create(Operation.INFO);
+        PersonCommand actual = PersonCommandFactory.create(Operation.INFO);
         PersonCommand expected = new PersonCommandInfo();
         Assert.assertEquals(expected, actual);
     }
@@ -40,7 +40,7 @@ public class CommandFactoryTest {
         Operation nullOperation = null;
         OperationIsEmptyException expected = new OperationIsEmptyException();
         try {
-            CommandFactory.create(nullOperation);
+            PersonCommandFactory.create(nullOperation);
         } catch (OperationIsEmptyException actual) {
             Assert.assertEquals(expected, actual);
             return;

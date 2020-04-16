@@ -4,7 +4,6 @@ import main.java.com.education.controller.command.Command;
 import main.java.com.education.exceptions.inout.console.QuitExpectedException;
 import main.java.com.education.exceptions.inout.console.ReadFromConsoleException;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
-import main.java.com.education.exceptions.inout.incorrectInput.IncorrectOperationException;
 import main.java.com.education.util.InputParser;
 
 import java.io.BufferedReader;
@@ -40,22 +39,19 @@ public class ControllerConsole extends Controller implements AutoCloseable {
     }
 
     @Override
-    public Command parse(String commandString) throws IncorrectInputException, QuitExpectedException {
-        try {
-            return super.parse(commandString);
-        } catch (IncorrectOperationException e) {
-            if (isQuit(commandString)) {
-                return this.new ConsoleCommandQuit();
-            } else if (isHelp(commandString)) {
-                return this.new ConsoleCommandHelp();
-            } else
-                throw e;
-        }
-    }
-
-    @Override
     public void close() throws IOException {
         reader.close();
+    }
+
+
+    @Override
+    protected Command createCommand(String commandName, String[] commandParameters) throws IncorrectInputException {
+        if (isQuit(commandName)) {
+            return this.new ConsoleCommandQuit();
+        } else if (isHelp(commandName)) {
+            return this.new ConsoleCommandHelp();
+        } else
+            return super.createCommand(commandName, commandParameters);
     }
 
 
