@@ -1,7 +1,7 @@
 package main.java.com.education.controller;
 
 import main.java.com.education.controller.command.Command;
-import main.java.com.education.exceptions.inout.console.ExitExpectedException;
+import main.java.com.education.exceptions.inout.console.QuitExpectedException;
 import main.java.com.education.exceptions.inout.console.ReadFromConsoleException;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectOperationException;
@@ -11,7 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class ControllerConsole extends Controller {
+public class ControllerConsole extends Controller implements AutoCloseable {
     public static final String COMMAND_QUIT = "-q";
     public static final String COMMAND_HELP = "-h";
     public static final String MESSAGE_HELP = InputParser.MESSAGE_OPERATIONS + "\n" +
@@ -40,11 +40,11 @@ public class ControllerConsole extends Controller {
     }
 
     @Override
-    public Command parse(String commandString) throws IncorrectInputException, ExitExpectedException {
+    public Command parse(String commandString) throws IncorrectInputException, QuitExpectedException {
         try {
             return super.parse(commandString);
         } catch (IncorrectOperationException e) {
-            if (isExit(commandString)) {
+            if (isQuit(commandString)) {
                 return this.new ConsoleCommandQuit();
             } else if (isHelp(commandString)) {
                 return this.new ConsoleCommandHelp();
@@ -53,20 +53,18 @@ public class ControllerConsole extends Controller {
         }
     }
 
+    @Override
+    public void close() throws IOException {
+        reader.close();
+    }
+
 
     private boolean isHelp(String operationString) {
         return COMMAND_HELP.equals(operationString);
     }
 
-    private boolean isExit(String commandString) {
+    private boolean isQuit(String commandString) {
         return COMMAND_QUIT.equals(commandString);
-    }
-
-    private void beforeExit() {
-        try {
-            reader.close();
-        } catch (IOException ignored) {
-        }
     }
 
     public abstract class ConsoleCommand extends Command {
@@ -74,9 +72,12 @@ public class ControllerConsole extends Controller {
 
     public class ConsoleCommandQuit extends ConsoleCommand {
         @Override
-        public void execute() throws ExitExpectedException {
-            beforeExit();
-            throw new ExitExpectedException();
+        public void execute() throws QuitExpectedException {
+            try {
+                close();
+            } catch (IOException ignored) {
+            }
+            throw new QuitExpectedException();
         }
     }
 

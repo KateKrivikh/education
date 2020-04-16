@@ -5,7 +5,7 @@ import main.java.com.education.exceptions.inout.InOutException;
 import main.java.com.education.exceptions.domain.DomainExceptions;
 import main.java.com.education.controller.Controller;
 import main.java.com.education.controller.ControllerConsole;
-import main.java.com.education.exceptions.inout.console.ExitExpectedException;
+import main.java.com.education.exceptions.inout.console.QuitExpectedException;
 
 /**
  * Provides CRUD operations.
@@ -32,7 +32,7 @@ public class Start {
                 String commandString = controller.read();
                 Command command = controller.parse(commandString);
                 controller.execute(command);
-            } catch (ExitExpectedException e) {
+            } catch (QuitExpectedException e) {
                 break;
             } catch (InOutException | DomainExceptions e) {
                 controller.write(e.getMessage());
