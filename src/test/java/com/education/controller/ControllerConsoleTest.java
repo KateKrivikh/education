@@ -4,7 +4,7 @@ import com.education.PersonTestUtils;
 import com.education.controller.command.Command;
 import com.education.controller.command.CrudCommand;
 import com.education.controller.command.PersonCommandInfo;
-import com.education.exceptions.domain.DomainExceptions;
+import com.education.exceptions.domain.DomainException;
 import com.education.exceptions.domain.PersonNotFoundException;
 import com.education.exceptions.inout.console.QuitExpectedException;
 import com.education.exceptions.inout.incorrectInput.EmptyCommandException;
@@ -193,7 +193,7 @@ public class ControllerConsoleTest {
 
             System.setOut(console);
             Assert.assertEquals(expected, actual);
-        } catch (DomainExceptions e) {
+        } catch (DomainException e) {
             System.setOut(console);
             Assert.fail("Unexpected exception");
             e.printStackTrace();

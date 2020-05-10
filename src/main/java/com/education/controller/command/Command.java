@@ -1,6 +1,6 @@
 package com.education.controller.command;
 
-import com.education.exceptions.domain.DomainExceptions;
+import com.education.exceptions.domain.DomainException;
 
 /**
  * Command, which can be executed in this system.
@@ -10,7 +10,7 @@ import com.education.exceptions.domain.DomainExceptions;
 public abstract class Command {
     protected String result;
 
-    public abstract void execute() throws DomainExceptions;
+    public abstract void execute() throws DomainException;
 
     public String getResult() {
         return result;

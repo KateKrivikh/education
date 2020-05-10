@@ -2,7 +2,7 @@ package com.education.controller;
 
 import com.education.controller.command.Command;
 import com.education.controller.command.CrudCommandFactory;
-import com.education.exceptions.domain.DomainExceptions;
+import com.education.exceptions.domain.DomainException;
 import com.education.exceptions.inout.incorrectInput.EmptyCommandException;
 import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
 
@@ -30,17 +30,17 @@ public abstract class Controller {
         return CrudCommandFactory.create(commandName, commandParameters);
     }
 
-    public void execute(Command command) throws DomainExceptions {
+    public void execute(Command command) throws DomainException {
         actionsBeforeExecuting(command);
         command.execute();
         actionsAfterExecuting(command);
     }
 
-    public void actionsBeforeExecuting(Command command) throws DomainExceptions {
+    public void actionsBeforeExecuting(Command command) throws DomainException {
 
     }
 
-    public void actionsAfterExecuting(Command command) throws DomainExceptions {
+    public void actionsAfterExecuting(Command command) throws DomainException {
         if (command.getResult() != null)
             write(command.getResult());
     }

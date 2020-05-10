@@ -2,7 +2,7 @@ package com.education.controller.command;
 
 import com.education.entities.Person;
 import com.education.entities.PersonRepository;
-import com.education.exceptions.domain.DomainExceptions;
+import com.education.exceptions.domain.DomainException;
 import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
 import com.education.util.InputParser;
 import com.education.util.OutputBuilder;
@@ -27,7 +27,7 @@ public class PersonCommandInfo extends PersonCommand {
     }
 
     @Override
-    public void execute() throws DomainExceptions {
+    public void execute() throws DomainException {
         Person person = PersonRepository.getById(id);
 
         // TODO пока что оставила как есть, буду думать дальше

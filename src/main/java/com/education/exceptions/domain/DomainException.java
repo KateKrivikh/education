@@ -6,11 +6,11 @@ import java.util.Objects;
  * TODO I do not know yet how this class should be named.
  * This is common class for logical exceptions.
  */
-public class DomainExceptions extends RuntimeException {
-    public DomainExceptions() {
+public class DomainException extends RuntimeException {
+    public DomainException() {
     }
 
-    public DomainExceptions(String message) {
+    public DomainException(String message) {
         super(message);
     }
 
@@ -24,7 +24,7 @@ public class DomainExceptions extends RuntimeException {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DomainExceptions exception = (DomainExceptions) o;
+        DomainException exception = (DomainException) o;
         return getMessage() == null ? exception.getMessage() == null : getMessage().equals(exception.getMessage());
     }
 }

@@ -2,7 +2,7 @@ package com.education;
 
 import com.education.controller.command.Command;
 import com.education.exceptions.inout.InOutException;
-import com.education.exceptions.domain.DomainExceptions;
+import com.education.exceptions.domain.DomainException;
 import com.education.controller.Controller;
 import com.education.controller.ControllerConsole;
 import com.education.exceptions.inout.console.QuitExpectedException;
@@ -34,7 +34,7 @@ public class Start {
                 controller.execute(command);
             } catch (QuitExpectedException e) {
                 break;
-            } catch (InOutException | DomainExceptions e) {
+            } catch (InOutException | DomainException e) {
                 controller.write(e.getMessage());
                 if (e.getCause() != null)
                     controller.write(e.getCause().getMessage());
