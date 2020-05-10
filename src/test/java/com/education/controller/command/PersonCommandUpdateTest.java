@@ -5,9 +5,7 @@ import com.education.entities.Person;
 import com.education.entities.PersonRepository;
 import com.education.entities.Sex;
 import com.education.exceptions.domain.PersonNotFoundException;
-import com.education.exceptions.inout.incorrectInput.IncorrectDateException;
 import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
-import com.education.exceptions.inout.incorrectInput.IncorrectOperationParametersCountException;
 import com.education.util.InputParser;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,8 +13,6 @@ import org.junit.Test;
 import java.time.LocalDate;
 
 public class PersonCommandUpdateTest {
-
-    public static final String MESSAGE_INCORRECT_INPUT_EXCEPTION = PersonCommandUpdate.MESSAGE_UPDATE_EXCEPTION;
 
     @Test
     public void setParameters() {
@@ -44,7 +40,7 @@ public class PersonCommandUpdateTest {
         Assert.assertEquals(birthDate, command.getBirthDate());
     }
 
-    @Test
+    @Test(expected = IncorrectInputException.class)
     public void setParametersNotEnoughParameters() {
         String idString = "1";
         String name = "Сидоров";
@@ -52,17 +48,10 @@ public class PersonCommandUpdateTest {
         String[] parameters = {idString, name};
         PersonCommand command = new PersonCommandUpdate();
 
-        try {
-            command.setParameters(parameters);
-            Assert.fail("IncorrectInputException expected");
-        } catch (IncorrectInputException actual) {
-            IncorrectOperationParametersCountException cause = new IncorrectOperationParametersCountException(command.getParametersCount());
-            IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
-            Assert.assertEquals(expected, actual);
-        }
+        command.setParameters(parameters);
     }
 
-    @Test
+    @Test(expected = IncorrectInputException.class)
     public void setParametersTooManyParameters() {
         String idString = "1";
         String name = "Сидоров";
@@ -73,17 +62,10 @@ public class PersonCommandUpdateTest {
         String[] parameters = {idString, name, sexString, birthDateString, someParameter};
         PersonCommand command = new PersonCommandUpdate();
 
-        try {
-            command.setParameters(parameters);
-            Assert.fail("IncorrectInputException expected");
-        } catch (IncorrectInputException actual) {
-            IncorrectOperationParametersCountException cause = new IncorrectOperationParametersCountException(command.getParametersCount());
-            IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
-            Assert.assertEquals(expected, actual);
-        }
+        command.setParameters(parameters);
     }
 
-    @Test
+    @Test(expected = IncorrectInputException.class)
     public void setParametersWrongParameters() {
         String idString = "1";
         String name = "Сидоров";
@@ -93,14 +75,7 @@ public class PersonCommandUpdateTest {
         String[] parameters = {idString, name, sexString, birthDateStringWrong};
         PersonCommand command = new PersonCommandUpdate();
 
-        try {
-            command.setParameters(parameters);
-            Assert.fail("IncorrectInputException expected");
-        } catch (IncorrectInputException actual) {
-            IncorrectDateException cause = new IncorrectDateException(birthDateStringWrong, InputParser.DATE_FORMAT_FOR_INPUT);
-            IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
-            Assert.assertEquals(expected, actual);
-        }
+        command.setParameters(parameters);
     }
 
 
@@ -178,11 +153,10 @@ public class PersonCommandUpdateTest {
         Assert.assertEquals(birthDate, actual.getBirthDate());
     }
 
-    @Test
+    @Test(expected = PersonNotFoundException.class)
     public void executePersonNotFound() {
         PersonTestUtils.fillPerson();
 
-        int expectedSize = PersonRepository.getAll().size();
         int minId = PersonTestUtils.getMinPersonId();
 
         int id = minId + 4;
@@ -202,15 +176,7 @@ public class PersonCommandUpdateTest {
             return;
         }
 
-        try {
-            command.execute();
-            Assert.fail("PersonNotFoundException expected");
-        } catch (PersonNotFoundException actual) {
-            PersonNotFoundException expected = new PersonNotFoundException(id);
-            Assert.assertEquals(expected, actual);
-        }
-        Assert.assertEquals(expectedSize, PersonRepository.getAll().size());
-        Assert.assertNull(command.getResult());
+        command.execute();
     }
 
 }

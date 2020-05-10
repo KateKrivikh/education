@@ -9,7 +9,6 @@ import com.education.exceptions.domain.PersonNotFoundException;
 import com.education.exceptions.inout.console.QuitExpectedException;
 import com.education.exceptions.inout.incorrectInput.EmptyCommandException;
 import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
-import com.education.exceptions.inout.incorrectInput.IncorrectOperationException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -86,59 +85,35 @@ public class ControllerConsoleTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(expected = IncorrectInputException.class)
     public void parseCommandUnknown() {
         ControllerConsole controller = new ControllerConsole();
         String commandUnknown = "-e";
-        try {
-            controller.parse(commandUnknown);
-            Assert.fail("IncorrectInputException expected");
-        } catch (IncorrectInputException actual) {
-            IncorrectOperationException expected = new IncorrectOperationException(commandUnknown);
-            Assert.assertEquals(expected, actual);
-        }
+        controller.parse(commandUnknown);
     }
 
-    @Test
+    @Test(expected = EmptyCommandException.class)
     public void parseCommandEmpty() {
         ControllerConsole controller = new ControllerConsole();
         String commandEmpty = "";
-        try {
-            controller.parse(commandEmpty);
-            Assert.fail("EmptyCommandException expected");
-        } catch (EmptyCommandException actual) {
-            EmptyCommandException expected = new EmptyCommandException();
-            Assert.assertEquals(expected, actual);
-        }
+        controller.parse(commandEmpty);
     }
 
-    @Test
+    @Test(expected = EmptyCommandException.class)
     public void parseCommandNull() {
         ControllerConsole controller = new ControllerConsole();
         String commandNull = null;
-        try {
-            controller.parse(commandNull);
-            Assert.fail("EmptyCommandException expected");
-        } catch (EmptyCommandException actual) {
-            EmptyCommandException expected = new EmptyCommandException();
-            Assert.assertEquals(expected, actual);
-        }
+        controller.parse(commandNull);
     }
 
 
-    @Test
+    @Test(expected = QuitExpectedException.class)
     public void executeQuit() {
         ControllerConsole controller = new ControllerConsole();
 
         Command command = controller.new ConsoleCommandQuit();
 
-        try {
-            controller.execute(command);
-            Assert.fail("QuitExpectedException expected");
-        } catch (QuitExpectedException actual) {
-            QuitExpectedException expected = new QuitExpectedException();
-            Assert.assertEquals(expected, actual);
-        }
+        controller.execute(command);
     }
 
     @Test
@@ -200,7 +175,7 @@ public class ControllerConsoleTest {
         }
     }
 
-    @Test
+    @Test(expected = PersonNotFoundException.class)
     public void executeCrudPersonNotFound() {
         PersonTestUtils.fillPerson();
         int minId = PersonTestUtils.getMinPersonId();
@@ -210,13 +185,7 @@ public class ControllerConsoleTest {
         command.setParameters(String.valueOf(idWrong));
 
         ControllerConsole controller = new ControllerConsole();
-        try {
-            controller.execute(command);
-            Assert.fail("PersonNotFoundException expected");
-        } catch (PersonNotFoundException actual) {
-            PersonNotFoundException expected = new PersonNotFoundException(idWrong);
-            Assert.assertEquals(expected, actual);
-        }
+        controller.execute(command);
     }
 
 }

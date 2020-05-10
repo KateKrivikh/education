@@ -34,15 +34,9 @@ public class PersonCommandFactoryTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(expected = OperationIsEmptyException.class)
     public void createNull() {
         Operation nullOperation = null;
-        OperationIsEmptyException expected = new OperationIsEmptyException();
-        try {
-            PersonCommandFactory.create(nullOperation);
-            Assert.fail("OperationIsEmptyException expected");
-        } catch (OperationIsEmptyException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        PersonCommandFactory.create(nullOperation);
     }
 }

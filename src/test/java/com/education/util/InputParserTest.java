@@ -38,40 +38,22 @@ public class InputParserTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(expected = IncorrectOperationException.class)
     public void parseOperationElse() {
         String someString = "test";
-        IncorrectOperationException expected = new IncorrectOperationException(someString);
-        try {
-            InputParser.parseOperation(someString);
-            Assert.fail("IncorrectOperationException expected");
-        } catch (IncorrectOperationException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseOperation(someString);
     }
 
-    @Test
+    @Test(expected = EmptyParameterException.class)
     public void parseOperationNull() {
         String nullString = null;
-        EmptyParameterException expected = new EmptyParameterException(InputParser.PARAM_NAME_OPERATION);
-        try {
-            InputParser.parseOperation(nullString);
-            Assert.fail("EmptyParameterException expected");
-        } catch (EmptyParameterException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseOperation(nullString);
     }
 
-    @Test
+    @Test(expected = EmptyParameterException.class)
     public void parseOperationEmpty() {
         String emptyString = "   ";
-        EmptyParameterException expected = new EmptyParameterException(InputParser.PARAM_NAME_OPERATION);
-        try {
-            InputParser.parseOperation(emptyString);
-            Assert.fail("EmptyParameterException expected");
-        } catch (EmptyParameterException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseOperation(emptyString);
     }
 
 
@@ -84,16 +66,10 @@ public class InputParserTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(expected = IncorrectOperationParametersCountException.class)
     public void checkParametersCountWrong() {
         int parametersCount = 1;
-        IncorrectOperationParametersCountException expected = new IncorrectOperationParametersCountException(parametersCount);
-        try {
-            InputParser.checkParametersCount(parametersCount);
-            Assert.fail("IncorrectOperationParametersCountException expected");
-        } catch (IncorrectOperationParametersCountException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.checkParametersCount(parametersCount);
     }
 
 
@@ -104,76 +80,40 @@ public class InputParserTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(expected = IncorrectIdException.class)
     public void parseIdNumber0() {
         String is0Id = "0";
-        IncorrectIdException expected = new IncorrectIdException(is0Id);
-        try {
-            InputParser.parseId(is0Id);
-            Assert.fail("IncorrectIdException expected");
-        } catch (IncorrectIdException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseId(is0Id);
     }
 
-    @Test
+    @Test(expected = IncorrectIdException.class)
     public void parseIdNumberNegative() {
         String negativeId = "-1";
-        IncorrectIdException expected = new IncorrectIdException(negativeId);
-        try {
-            InputParser.parseId(negativeId);
-            Assert.fail("IncorrectIdException expected");
-        } catch (IncorrectIdException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseId(negativeId);
     }
 
-    @Test
+    @Test(expected = IncorrectIdException.class)
     public void parseIdNotInt() {
         String notIntId = "1.5";
-        IncorrectIdException expected = new IncorrectIdException(notIntId);
-        try {
-            InputParser.parseId(notIntId);
-            Assert.fail("IncorrectIdException expected");
-        } catch (IncorrectIdException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseId(notIntId);
     }
 
-    @Test
+    @Test(expected = IncorrectIdException.class)
     public void parseIdNotNumber() {
         String notNumberId = "a";
-        IncorrectIdException expected = new IncorrectIdException(notNumberId);
-        try {
-            InputParser.parseId(notNumberId);
-            Assert.fail("IncorrectIdException expected");
-        } catch (IncorrectIdException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseId(notNumberId);
     }
 
-    @Test
+    @Test(expected = EmptyParameterException.class)
     public void parseIdNull() {
         String nullId = null;
-        EmptyParameterException expected = new EmptyParameterException(InputParser.PARAM_NAME_ID);
-        try {
-            InputParser.parseId(nullId);
-            Assert.fail("EmptyParameterException expected");
-        } catch (EmptyParameterException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseId(nullId);
     }
 
-    @Test
+    @Test(expected = EmptyParameterException.class)
     public void parseIdEmpty() {
         String emptyId = "   ";
-        EmptyParameterException expected = new EmptyParameterException(InputParser.PARAM_NAME_ID);
-        try {
-            InputParser.parseId(emptyId);
-            Assert.fail("EmptyParameterException expected");
-        } catch (EmptyParameterException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseId(emptyId);
     }
 
 
@@ -191,40 +131,22 @@ public class InputParserTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(expected = IncorrectSexException.class)
     public void parseSexElse() {
         String someSex = "м.";
-        IncorrectSexException expected = new IncorrectSexException(someSex, InputParser.SEX_FORMATS_FOR_MESSAGE);
-        try {
-            InputParser.parseSex(someSex);
-            Assert.fail("IncorrectSexException expected");
-        } catch (IncorrectSexException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseSex(someSex);
     }
 
-    @Test
+    @Test(expected = EmptyParameterException.class)
     public void parseSexNull() {
         String nullSex = null;
-        EmptyParameterException expected = new EmptyParameterException(InputParser.PARAM_NAME_SEX);
-        try {
-            InputParser.parseSex(nullSex);
-            Assert.fail("EmptyParameterException expected");
-        } catch (EmptyParameterException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseSex(nullSex);
     }
 
-    @Test
+    @Test(expected = EmptyParameterException.class)
     public void parseSexEmpty() {
         String emptySex = "   ";
-        EmptyParameterException expected = new EmptyParameterException(InputParser.PARAM_NAME_SEX);
-        try {
-            InputParser.parseSex(emptySex);
-            Assert.fail("EmptyParameterException expected");
-        } catch (EmptyParameterException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseSex(emptySex);
     }
 
 
@@ -235,39 +157,21 @@ public class InputParserTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(expected = IncorrectDateException.class)
     public void parseDateWrongFormat() {
         String date = "12-04-2000";
-        IncorrectDateException expected = new IncorrectDateException(date, InputParser.DATE_FORMAT_FOR_INPUT);
-        try {
-            InputParser.parseDate(date);
-            Assert.fail("IncorrectDateException expected");
-        } catch (IncorrectDateException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseDate(date);
     }
 
-    @Test
+    @Test(expected = EmptyParameterException.class)
     public void parseDateNull() {
         String nullDate = null;
-        EmptyParameterException expected = new EmptyParameterException(InputParser.PARAM_NAME_DATE);
-        try {
-            InputParser.parseDate(nullDate);
-            Assert.fail("EmptyParameterException expected");
-        } catch (EmptyParameterException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseDate(nullDate);
     }
 
-    @Test
+    @Test(expected = EmptyParameterException.class)
     public void parseDateEmpty() {
         String emptyDate = "   ";
-        EmptyParameterException expected = new EmptyParameterException(InputParser.PARAM_NAME_DATE);
-        try {
-            InputParser.parseDate(emptyDate);
-            Assert.fail("EmptyParameterException expected");
-        } catch (EmptyParameterException actual) {
-            Assert.assertEquals(expected, actual);
-        }
+        InputParser.parseDate(emptyDate);
     }
 }

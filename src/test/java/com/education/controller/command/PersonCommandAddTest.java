@@ -4,8 +4,6 @@ import com.education.entities.Person;
 import com.education.entities.PersonRepository;
 import com.education.entities.Sex;
 import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
-import com.education.exceptions.inout.incorrectInput.IncorrectOperationParametersCountException;
-import com.education.exceptions.inout.incorrectInput.IncorrectSexException;
 import com.education.util.InputParser;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,8 +11,6 @@ import org.junit.Test;
 import java.time.LocalDate;
 
 public class PersonCommandAddTest {
-
-    public static final String MESSAGE_INCORRECT_INPUT_EXCEPTION = PersonCommandAdd.MESSAGE_ADD_EXCEPTION;
 
     @Test
     public void setParameters() {
@@ -39,7 +35,7 @@ public class PersonCommandAddTest {
         Assert.assertEquals(birthDate, command.getBirthDate());
     }
 
-    @Test
+    @Test(expected = IncorrectInputException.class)
     public void setParametersNotEnoughParameters() {
         String name = "Сидоров";
         String sexString = InputParser.PARAM_SEX_MALE;
@@ -47,17 +43,10 @@ public class PersonCommandAddTest {
         String[] parameters = {name, sexString};
         PersonCommand command = new PersonCommandAdd();
 
-        try {
-            command.setParameters(parameters);
-            Assert.fail("IncorrectInputException expected");
-        } catch (IncorrectInputException actual) {
-            IncorrectOperationParametersCountException cause = new IncorrectOperationParametersCountException(command.getParametersCount());
-            IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
-            Assert.assertEquals(expected, actual);
-        }
+        command.setParameters(parameters);
     }
 
-    @Test
+    @Test(expected = IncorrectInputException.class)
     public void setParametersTooManyParameters() {
         String idString = "1";
         String name = "Сидоров";
@@ -67,17 +56,10 @@ public class PersonCommandAddTest {
         String[] parameters = {idString, name, sexString, birthDateString};
         PersonCommand command = new PersonCommandAdd();
 
-        try {
-            command.setParameters(parameters);
-            Assert.fail("IncorrectInputException expected");
-        } catch (IncorrectInputException actual) {
-            IncorrectOperationParametersCountException cause = new IncorrectOperationParametersCountException(command.getParametersCount());
-            IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
-            Assert.assertEquals(expected, actual);
-        }
+        command.setParameters(parameters);
     }
 
-    @Test
+    @Test(expected = IncorrectInputException.class)
     public void setParametersWrongParameters() {
         String name = "Сидоров";
         String sexStringWrong = "male";
@@ -86,14 +68,7 @@ public class PersonCommandAddTest {
         String[] parameters = {name, sexStringWrong, birthDateString};
         PersonCommand command = new PersonCommandAdd();
 
-        try {
-            command.setParameters(parameters);
-            Assert.fail("IncorrectInputException expected");
-        } catch (IncorrectInputException actual) {
-            IncorrectSexException cause = new IncorrectSexException(sexStringWrong, InputParser.SEX_FORMATS_FOR_MESSAGE);
-            IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
-            Assert.assertEquals(expected, actual);
-        }
+        command.setParameters(parameters);
     }
 
 

@@ -97,15 +97,9 @@ public class OutputBuilderTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(expected = SexIsEmptyException.class)
     public void writeSexNull() {
-        try {
-            OutputBuilder.writeSex(null);
-            Assert.fail("SexIsEmptyException expected");
-        } catch (SexIsEmptyException actual) {
-            SexIsEmptyException expected = new SexIsEmptyException();
-            Assert.assertEquals(expected, actual);
-        }
+        OutputBuilder.writeSex(null);
     }
 
 
@@ -116,14 +110,8 @@ public class OutputBuilderTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(expected = DateIsEmptyException.class)
     public void writeDateNull() {
-        try {
-            OutputBuilder.writeDate(null);
-            Assert.fail("DateIsEmptyException expected");
-        } catch (DateIsEmptyException actual) {
-            DateIsEmptyException expected = new DateIsEmptyException();
-            Assert.assertEquals(expected, actual);
-        }
+        OutputBuilder.writeDate(null);
     }
 }

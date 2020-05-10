@@ -4,16 +4,12 @@ import com.education.PersonTestUtils;
 import com.education.entities.Person;
 import com.education.entities.PersonRepository;
 import com.education.exceptions.domain.PersonNotFoundException;
-import com.education.exceptions.inout.incorrectInput.IncorrectIdException;
 import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
-import com.education.exceptions.inout.incorrectInput.IncorrectOperationParametersCountException;
 import com.education.util.OutputBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class PersonCommandInfoTest {
-
-    public static final String MESSAGE_INCORRECT_INPUT_EXCEPTION = PersonCommandInfo.MESSAGE_INFO_EXCEPTION;
 
     @Test
     public void setParameters() {
@@ -36,22 +32,15 @@ public class PersonCommandInfoTest {
         Assert.assertNull(command.getBirthDate());
     }
 
-    @Test
+    @Test(expected = IncorrectInputException.class)
     public void setParametersNotEnoughParameters() {
         String[] parameters = {};
         PersonCommand command = new PersonCommandInfo();
 
-        try {
-            command.setParameters(parameters);
-            Assert.fail("IncorrectInputException expected");
-        } catch (IncorrectInputException actual) {
-            IncorrectOperationParametersCountException cause = new IncorrectOperationParametersCountException(command.getParametersCount());
-            IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
-            Assert.assertEquals(expected, actual);
-        }
+        command.setParameters(parameters);
     }
 
-    @Test
+    @Test(expected = IncorrectInputException.class)
     public void setParametersTooManyParameters() {
         String idString = "1";
         String name = "Сидоров";
@@ -59,31 +48,17 @@ public class PersonCommandInfoTest {
         String[] parameters = {idString, name};
         PersonCommand command = new PersonCommandInfo();
 
-        try {
-            command.setParameters(parameters);
-            Assert.fail("IncorrectInputException expected");
-        } catch (IncorrectInputException actual) {
-            IncorrectOperationParametersCountException cause = new IncorrectOperationParametersCountException(command.getParametersCount());
-            IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
-            Assert.assertEquals(expected, actual);
-        }
+        command.setParameters(parameters);
     }
 
-    @Test
+    @Test(expected = IncorrectInputException.class)
     public void setParametersWrongParameters() {
         String idStringWrong = "wrong";
 
         String[] parameters = {idStringWrong};
         PersonCommand command = new PersonCommandInfo();
 
-        try {
-            command.setParameters(parameters);
-            Assert.fail("IncorrectInputException expected");
-        } catch (IncorrectInputException actual) {
-            IncorrectIdException cause = new IncorrectIdException(idStringWrong);
-            IncorrectInputException expected = new IncorrectInputException(MESSAGE_INCORRECT_INPUT_EXCEPTION, cause);
-            Assert.assertEquals(expected, actual);
-        }
+        command.setParameters(parameters);
     }
 
 
@@ -147,11 +122,10 @@ public class PersonCommandInfoTest {
         Assert.assertEquals(expected, command.getResult());
     }
 
-    @Test
+    @Test(expected = PersonNotFoundException.class)
     public void executePersonNotFound() {
         PersonTestUtils.fillPerson();
 
-        int expectedSize = PersonRepository.getAll().size();
         int minId = PersonTestUtils.getMinPersonId();
 
         int id = minId + 4;
@@ -168,15 +142,7 @@ public class PersonCommandInfoTest {
             return;
         }
 
-        try {
-            command.execute();
-            Assert.fail("PersonNotFoundException expected");
-        } catch (PersonNotFoundException actual) {
-            PersonNotFoundException expected = new PersonNotFoundException(id);
-            Assert.assertEquals(expected, actual);
-        }
-        Assert.assertEquals(expectedSize, PersonRepository.getAll().size());
-        Assert.assertNull(command.getResult());
+        command.execute();
     }
 
 }
