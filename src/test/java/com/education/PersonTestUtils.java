@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-public class UtilTest {
+public class PersonTestUtils {
     private static List<Person> getAllPerson() {
         Person person1 = new Person("Иванов Иван", Sex.MALE, LocalDate.of(2000, 1, 1));
         Person person2 = new Person(null, null, null);

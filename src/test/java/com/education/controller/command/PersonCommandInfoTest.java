@@ -11,7 +11,7 @@ import main.java.com.education.exceptions.inout.incorrectInput.IncorrectOperatio
 import main.java.com.education.util.OutputBuilder;
 import org.junit.Assert;
 import org.junit.Test;
-import test.java.com.education.UtilTest;
+import test.java.com.education.PersonTestUtils;
 
 public class PersonCommandInfoTest {
 
@@ -91,10 +91,10 @@ public class PersonCommandInfoTest {
 
     @Test
     public void executeExisting() {
-        UtilTest.fillPerson();
+        PersonTestUtils.fillPerson();
 
         int expectedSize = PersonRepository.getAll().size();
-        int minId = UtilTest.getMinPersonId();
+        int minId = PersonTestUtils.getMinPersonId();
 
         int id = minId;
         String idString = String.valueOf(id);
@@ -122,10 +122,10 @@ public class PersonCommandInfoTest {
 
     @Test
     public void executeRemoved() {
-        UtilTest.fillPerson();
+        PersonTestUtils.fillPerson();
 
         int expectedSize = PersonRepository.getAll().size();
-        int minId = UtilTest.getMinPersonId();
+        int minId = PersonTestUtils.getMinPersonId();
 
         int id = minId + 1;
         String idString = String.valueOf(id);
@@ -151,10 +151,10 @@ public class PersonCommandInfoTest {
 
     @Test
     public void executePersonNotFound() {
-        UtilTest.fillPerson();
+        PersonTestUtils.fillPerson();
 
         int expectedSize = PersonRepository.getAll().size();
-        int minId = UtilTest.getMinPersonId();
+        int minId = PersonTestUtils.getMinPersonId();
 
         int id = minId + 4;
         String idString = String.valueOf(id);

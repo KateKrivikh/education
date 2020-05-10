@@ -10,7 +10,7 @@ import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputExc
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectOperationParametersCountException;
 import org.junit.Assert;
 import org.junit.Test;
-import test.java.com.education.UtilTest;
+import test.java.com.education.PersonTestUtils;
 
 public class PersonCommandRemoveTest {
 
@@ -90,10 +90,10 @@ public class PersonCommandRemoveTest {
 
     @Test
     public void executeExisting() {
-        UtilTest.fillPerson();
+        PersonTestUtils.fillPerson();
 
         int expectedSize = PersonRepository.getAll().size();
-        int minId = UtilTest.getMinPersonId();
+        int minId = PersonTestUtils.getMinPersonId();
 
         int id = minId;
         String idString = String.valueOf(id);
@@ -122,10 +122,10 @@ public class PersonCommandRemoveTest {
 
     @Test
     public void executeRemoved() {
-        UtilTest.fillPerson();
+        PersonTestUtils.fillPerson();
 
         int expectedSize = PersonRepository.getAll().size();
-        int minId = UtilTest.getMinPersonId();
+        int minId = PersonTestUtils.getMinPersonId();
 
         int id = minId + 1;
         String idString = String.valueOf(id);
@@ -154,10 +154,10 @@ public class PersonCommandRemoveTest {
 
     @Test
     public void executePersonNotFound() {
-        UtilTest.fillPerson();
+        PersonTestUtils.fillPerson();
 
         int expectedSize = PersonRepository.getAll().size();
-        int minId = UtilTest.getMinPersonId();
+        int minId = PersonTestUtils.getMinPersonId();
 
         int id = minId + 4;
         String idString = String.valueOf(id);

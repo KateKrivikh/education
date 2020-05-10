@@ -12,7 +12,7 @@ import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputExc
 import main.java.com.education.exceptions.inout.incorrectInput.IncorrectOperationException;
 import org.junit.Assert;
 import org.junit.Test;
-import test.java.com.education.UtilTest;
+import test.java.com.education.PersonTestUtils;
 
 import java.io.*;
 
@@ -171,8 +171,8 @@ public class ControllerConsoleTest {
 
     @Test
     public void executeCrud() {
-        UtilTest.fillPerson();
-        int minId = UtilTest.getMinPersonId();
+        PersonTestUtils.fillPerson();
+        int minId = PersonTestUtils.getMinPersonId();
 
         ControllerConsole controller = new ControllerConsole();
 
@@ -203,8 +203,8 @@ public class ControllerConsoleTest {
 
     @Test
     public void executeCrudPersonNotFound() {
-        UtilTest.fillPerson();
-        int minId = UtilTest.getMinPersonId();
+        PersonTestUtils.fillPerson();
+        int minId = PersonTestUtils.getMinPersonId();
         int idWrong = minId + 4;
 
         CrudCommand command = new PersonCommandInfo();
