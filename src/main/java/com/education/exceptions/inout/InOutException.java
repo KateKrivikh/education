@@ -1,4 +1,4 @@
-package main.java.com.education.exceptions.inout;
+package com.education.exceptions.inout;
 
 import java.util.Objects;
 

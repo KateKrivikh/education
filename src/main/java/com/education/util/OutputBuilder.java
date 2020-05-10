@@ -1,8 +1,8 @@
-package main.java.com.education.util;
+package com.education.util;
 
-import main.java.com.education.entities.Sex;
-import main.java.com.education.exceptions.domain.DateIsEmptyException;
-import main.java.com.education.exceptions.domain.SexIsEmptyException;
+import com.education.entities.Sex;
+import com.education.exceptions.domain.DateIsEmptyException;
+import com.education.exceptions.domain.SexIsEmptyException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

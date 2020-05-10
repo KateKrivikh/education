@@ -1,9 +1,9 @@
-package main.java.com.education.controller.command;
+package com.education.controller.command;
 
-import main.java.com.education.entities.Person;
-import main.java.com.education.entities.PersonRepository;
-import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
-import main.java.com.education.util.InputParser;
+import com.education.entities.Person;
+import com.education.entities.PersonRepository;
+import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
+import com.education.util.InputParser;
 
 public class PersonCommandAdd extends PersonCommand {
 

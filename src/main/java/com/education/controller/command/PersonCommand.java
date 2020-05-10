@@ -1,6 +1,6 @@
-package main.java.com.education.controller.command;
+package com.education.controller.command;
 
-import main.java.com.education.entities.Sex;
+import com.education.entities.Sex;
 
 import java.time.LocalDate;
 import java.util.Objects;

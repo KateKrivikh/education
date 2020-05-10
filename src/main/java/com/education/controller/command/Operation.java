@@ -1,4 +1,4 @@
-package main.java.com.education.controller.command;
+package com.education.controller.command;
 
 /**
  * CRUD - operation.

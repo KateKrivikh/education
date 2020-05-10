@@ -1,8 +1,8 @@
-package test.java.com.education;
+package com.education;
 
-import main.java.com.education.entities.Person;
-import main.java.com.education.entities.PersonRepository;
-import main.java.com.education.entities.Sex;
+import com.education.entities.Person;
+import com.education.entities.PersonRepository;
+import com.education.entities.Sex;
 
 import java.time.LocalDate;
 import java.util.Arrays;

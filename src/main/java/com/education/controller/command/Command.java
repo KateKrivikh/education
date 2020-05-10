@@ -1,6 +1,6 @@
-package main.java.com.education.controller.command;
+package com.education.controller.command;
 
-import main.java.com.education.exceptions.domain.DomainExceptions;
+import com.education.exceptions.domain.DomainExceptions;
 
 /**
  * Command, which can be executed in this system.

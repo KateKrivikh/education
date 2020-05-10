@@ -1,4 +1,4 @@
-package main.java.com.education.exceptions.inout.incorrectInput;
+package com.education.exceptions.inout.incorrectInput;
 
 public class IncorrectOperationParametersCountException extends IncorrectInputException {
     public static final String MESSAGE_PARSE_EXCEPTION_WRONG_PARAMETERS_COUNT =

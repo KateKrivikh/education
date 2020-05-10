@@ -1,4 +1,4 @@
-package main.java.com.education.entities;
+package com.education.entities;
 
 public enum Sex {
     MALE,

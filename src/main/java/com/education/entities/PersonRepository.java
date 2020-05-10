@@ -1,6 +1,6 @@
-package main.java.com.education.entities;
+package com.education.entities;
 
-import main.java.com.education.exceptions.domain.PersonNotFoundException;
+import com.education.exceptions.domain.PersonNotFoundException;
 
 import java.util.ArrayList;
 import java.util.HashMap;

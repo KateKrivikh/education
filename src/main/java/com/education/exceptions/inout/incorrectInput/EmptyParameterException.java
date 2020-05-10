@@ -1,4 +1,4 @@
-package main.java.com.education.exceptions.inout.incorrectInput;
+package com.education.exceptions.inout.incorrectInput;
 
 public class EmptyParameterException extends IncorrectInputException {
 

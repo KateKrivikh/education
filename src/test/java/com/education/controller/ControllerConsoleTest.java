@@ -1,18 +1,17 @@
-package test.java.com.education.controller;
+package com.education.controller;
 
-import main.java.com.education.controller.ControllerConsole;
-import main.java.com.education.controller.command.Command;
-import main.java.com.education.controller.command.CrudCommand;
-import main.java.com.education.controller.command.PersonCommandInfo;
-import main.java.com.education.exceptions.domain.DomainExceptions;
-import main.java.com.education.exceptions.domain.PersonNotFoundException;
-import main.java.com.education.exceptions.inout.console.QuitExpectedException;
-import main.java.com.education.exceptions.inout.incorrectInput.EmptyCommandException;
-import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
-import main.java.com.education.exceptions.inout.incorrectInput.IncorrectOperationException;
+import com.education.PersonTestUtils;
+import com.education.controller.command.Command;
+import com.education.controller.command.CrudCommand;
+import com.education.controller.command.PersonCommandInfo;
+import com.education.exceptions.domain.DomainExceptions;
+import com.education.exceptions.domain.PersonNotFoundException;
+import com.education.exceptions.inout.console.QuitExpectedException;
+import com.education.exceptions.inout.incorrectInput.EmptyCommandException;
+import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
+import com.education.exceptions.inout.incorrectInput.IncorrectOperationException;
 import org.junit.Assert;
 import org.junit.Test;
-import test.java.com.education.PersonTestUtils;
 
 import java.io.*;
 

@@ -1,8 +1,8 @@
-package main.java.com.education.util;
+package com.education.util;
 
-import main.java.com.education.controller.command.Operation;
-import main.java.com.education.entities.Sex;
-import main.java.com.education.exceptions.inout.incorrectInput.*;
+import com.education.controller.command.Operation;
+import com.education.entities.Sex;
+import com.education.exceptions.inout.incorrectInput.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

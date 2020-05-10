@@ -1,4 +1,4 @@
-package main.java.com.education.exceptions.inout.console;
+package com.education.exceptions.inout.console;
 
 public class ReadFromConsoleException extends ConsoleException {
     public ReadFromConsoleException(String message) {

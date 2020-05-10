@@ -1,10 +1,10 @@
-package main.java.com.education.controller;
+package com.education.controller;
 
-import main.java.com.education.controller.command.Command;
-import main.java.com.education.exceptions.inout.console.QuitExpectedException;
-import main.java.com.education.exceptions.inout.console.ReadFromConsoleException;
-import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
-import main.java.com.education.util.InputParser;
+import com.education.controller.command.Command;
+import com.education.exceptions.inout.console.QuitExpectedException;
+import com.education.exceptions.inout.console.ReadFromConsoleException;
+import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
+import com.education.util.InputParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;

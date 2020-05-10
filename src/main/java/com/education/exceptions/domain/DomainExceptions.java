@@ -1,4 +1,4 @@
-package main.java.com.education.exceptions.domain;
+package com.education.exceptions.domain;
 
 import java.util.Objects;
 

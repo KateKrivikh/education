@@ -1,4 +1,4 @@
-package main.java.com.education.exceptions.inout.incorrectInput;
+package com.education.exceptions.inout.incorrectInput;
 
 public class IncorrectDateException extends IncorrectInputException {
     public static final String MESSAGE_PARSE_EXCEPTION_DATE =

@@ -1,9 +1,8 @@
-package test.java.com.education.util;
+package com.education.util;
 
-import main.java.com.education.entities.Sex;
-import main.java.com.education.exceptions.domain.DateIsEmptyException;
-import main.java.com.education.exceptions.domain.SexIsEmptyException;
-import main.java.com.education.util.OutputBuilder;
+import com.education.entities.Sex;
+import com.education.exceptions.domain.DateIsEmptyException;
+import com.education.exceptions.domain.SexIsEmptyException;
 import org.junit.Assert;
 import org.junit.Test;
 

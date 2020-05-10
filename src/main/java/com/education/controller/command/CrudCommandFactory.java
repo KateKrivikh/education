@@ -1,7 +1,7 @@
-package main.java.com.education.controller.command;
+package com.education.controller.command;
 
-import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
-import main.java.com.education.util.InputParser;
+import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
+import com.education.util.InputParser;
 
 /**
  * Factory creates CrudCommand.

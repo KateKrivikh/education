@@ -1,6 +1,6 @@
-package main.java.com.education.exceptions.inout.console;
+package com.education.exceptions.inout.console;
 
-import main.java.com.education.exceptions.inout.InOutException;
+import com.education.exceptions.inout.InOutException;
 
 /**
  * Common class for console exceptions.

@@ -1,18 +1,16 @@
-package test.java.com.education.controller.command;
+package com.education.controller.command;
 
-import main.java.com.education.controller.command.PersonCommand;
-import main.java.com.education.controller.command.PersonCommandUpdate;
-import main.java.com.education.entities.Person;
-import main.java.com.education.entities.PersonRepository;
-import main.java.com.education.entities.Sex;
-import main.java.com.education.exceptions.domain.PersonNotFoundException;
-import main.java.com.education.exceptions.inout.incorrectInput.IncorrectDateException;
-import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
-import main.java.com.education.exceptions.inout.incorrectInput.IncorrectOperationParametersCountException;
-import main.java.com.education.util.InputParser;
+import com.education.PersonTestUtils;
+import com.education.entities.Person;
+import com.education.entities.PersonRepository;
+import com.education.entities.Sex;
+import com.education.exceptions.domain.PersonNotFoundException;
+import com.education.exceptions.inout.incorrectInput.IncorrectDateException;
+import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
+import com.education.exceptions.inout.incorrectInput.IncorrectOperationParametersCountException;
+import com.education.util.InputParser;
 import org.junit.Assert;
 import org.junit.Test;
-import test.java.com.education.PersonTestUtils;
 
 import java.time.LocalDate;
 

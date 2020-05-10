@@ -1,11 +1,11 @@
-package main.java.com.education;
+package com.education;
 
-import main.java.com.education.controller.command.Command;
-import main.java.com.education.exceptions.inout.InOutException;
-import main.java.com.education.exceptions.domain.DomainExceptions;
-import main.java.com.education.controller.Controller;
-import main.java.com.education.controller.ControllerConsole;
-import main.java.com.education.exceptions.inout.console.QuitExpectedException;
+import com.education.controller.command.Command;
+import com.education.exceptions.inout.InOutException;
+import com.education.exceptions.domain.DomainExceptions;
+import com.education.controller.Controller;
+import com.education.controller.ControllerConsole;
+import com.education.exceptions.inout.console.QuitExpectedException;
 
 /**
  * Provides CRUD operations.

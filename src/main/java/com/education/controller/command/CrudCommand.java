@@ -1,7 +1,7 @@
-package main.java.com.education.controller.command;
+package com.education.controller.command;
 
-import main.java.com.education.exceptions.domain.OperationIsEmptyException;
-import main.java.com.education.exceptions.inout.incorrectInput.IncorrectInputException;
+import com.education.exceptions.domain.OperationIsEmptyException;
+import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
 
 /**
  * Command of CRUD-operation.

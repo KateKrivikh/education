@@ -1,7 +1,6 @@
-package test.java.com.education.controller.command;
+package com.education.controller.command;
 
-import main.java.com.education.controller.command.*;
-import main.java.com.education.exceptions.domain.OperationIsEmptyException;
+import com.education.exceptions.domain.OperationIsEmptyException;
 import org.junit.Assert;
 import org.junit.Test;
 
