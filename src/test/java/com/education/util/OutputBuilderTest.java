@@ -18,10 +18,9 @@ public class OutputBuilderTest {
         String sexString = OutputBuilder.SEX_MALE;
         LocalDate date = LocalDate.of(2003, 4, 13);
         String dateString = "13-Apr-2003";
-        String delimiter = " ";
 
         String actual = OutputBuilder.getPersonInfo(id, name, sex, date);
-        String expected = name + delimiter + sexString + delimiter + dateString;
+        String expected = String.format("%s %s %s", name, sexString, dateString);
         Assert.assertEquals(expected, actual);
     }
 
@@ -45,10 +44,9 @@ public class OutputBuilderTest {
         String sexString = OutputBuilder.SEX_MALE;
         LocalDate date = LocalDate.of(2003, 4, 13);
         String dateString = "13-Apr-2003";
-        String delimiter = " ";
 
         String actual = OutputBuilder.getPersonInfo(id, name, sex, date);
-        String expected = name + delimiter + sexString + delimiter + dateString;
+        String expected = String.format("%s %s %s", name, sexString, dateString);
         Assert.assertEquals(expected, actual);
     }
 
@@ -60,10 +58,9 @@ public class OutputBuilderTest {
         String sexString = "null";
         LocalDate date = LocalDate.of(2003, 4, 13);
         String dateString = "13-Apr-2003";
-        String delimiter = " ";
 
         String actual = OutputBuilder.getPersonInfo(id, name, sex, date);
-        String expected = name + delimiter + sexString + delimiter + dateString;
+        String expected = String.format("%s %s %s", name, sexString, dateString);
         Assert.assertEquals(expected, actual);
     }
 
@@ -75,10 +72,9 @@ public class OutputBuilderTest {
         String sexString = OutputBuilder.SEX_MALE;
         LocalDate date = null;
         String dateString = "null";
-        String delimiter = " ";
 
         String actual = OutputBuilder.getPersonInfo(id, name, sex, date);
-        String expected = name + delimiter + sexString + delimiter + dateString;
+        String expected = String.format("%s %s %s", name, sexString, dateString);
         Assert.assertEquals(expected, actual);
     }
 
