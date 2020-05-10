@@ -22,20 +22,17 @@ public class ControllerConsoleTest {
 
         InputStream console = System.in;
 
-        InputStream inputStream = new ByteArrayInputStream(someString.getBytes());
-        System.setIn(inputStream);
+        try (InputStream inputStream = new ByteArrayInputStream(someString.getBytes())) {
+            System.setIn(inputStream);
 
-        ControllerConsole controller = new ControllerConsole();
-        String actual = controller.read();
-        String expected = someString;
+            ControllerConsole controller = new ControllerConsole();
+            String actual = controller.read();
+            String expected = someString;
 
-        System.setIn(console);
-        try {
-            inputStream.close();
+            System.setIn(console);
+            Assert.assertEquals(expected, actual);
         } catch (IOException ignored) {
         }
-
-        Assert.assertEquals(expected, actual);
     }
 
 
@@ -124,23 +121,20 @@ public class ControllerConsoleTest {
 
         PrintStream console = System.out;
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream stream = new PrintStream(outputStream);
-        System.setOut(stream);
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+             PrintStream stream = new PrintStream(outputStream)) {
 
-        controller.execute(command);
+            System.setOut(stream);
 
-        String actual = outputStream.toString();
-        String expected = ControllerConsole.MESSAGE_HELP + "\r\n";
+            controller.execute(command);
 
-        System.setOut(console);
-        stream.close();
-        try {
-            outputStream.close();
+            String actual = outputStream.toString();
+            String expected = ControllerConsole.MESSAGE_HELP + "\r\n";
+
+            System.setOut(console);
+            Assert.assertEquals(expected, actual);
         } catch (IOException ignored) {
         }
-
-        Assert.assertEquals(expected, actual);
     }
 
     @Test
