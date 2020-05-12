@@ -6,100 +6,104 @@ import com.education.entities.Sex;
 import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
 import com.education.util.InputParser;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
 
 public class PersonCommandAddTest {
 
-    @Test
-    public void setParameters() {
-        String name = "Сидоров";
-        Sex sex = Sex.MALE;
-        String sexString = InputParser.PARAM_SEX_MALE;
-        LocalDate birthDate = LocalDate.of(2003, 4, 13);
-        String birthDateString = "13/04/2003";
+    PersonCommand command;
+    String[] parameters;
 
-        String[] parameters = {name, sexString, birthDateString};
-        PersonCommand command = new PersonCommandAdd();
+    String name;
+    Sex sex;
+    String sexString;
+    LocalDate birthDate;
+    String birthDateString;
 
-        try {
-            command.setParameters(parameters);
-        } catch (IncorrectInputException e) {
-            Assert.fail("Unexpected exception");
-            e.printStackTrace();
-            return;
-        }
-        Assert.assertEquals(name, command.getName());
-        Assert.assertEquals(sex, command.getSex());
-        Assert.assertEquals(birthDate, command.getBirthDate());
+    @Before
+    public void fillParameters() {
+        command = new PersonCommandAdd();
+
+        name = "Сидоров";
+        sex = Sex.MALE;
+        sexString = InputParser.PARAM_SEX_MALE;
+        birthDate = LocalDate.of(2003, 4, 13);
+        birthDateString = "13/04/2003";
     }
-
-    @Test(expected = IncorrectInputException.class)
-    public void setParametersNotEnoughParameters() {
-        String name = "Сидоров";
-        String sexString = InputParser.PARAM_SEX_MALE;
-
-        String[] parameters = {name, sexString};
-        PersonCommand command = new PersonCommandAdd();
-
-        command.setParameters(parameters);
-    }
-
-    @Test(expected = IncorrectInputException.class)
-    public void setParametersTooManyParameters() {
-        String idString = "1";
-        String name = "Сидоров";
-        String sexString = InputParser.PARAM_SEX_MALE;
-        String birthDateString = "13/04/2003";
-
-        String[] parameters = {idString, name, sexString, birthDateString};
-        PersonCommand command = new PersonCommandAdd();
-
-        command.setParameters(parameters);
-    }
-
-    @Test(expected = IncorrectInputException.class)
-    public void setParametersWrongParameters() {
-        String name = "Сидоров";
-        String sexStringWrong = "male";
-        String birthDateString = "13/04/2003";
-
-        String[] parameters = {name, sexStringWrong, birthDateString};
-        PersonCommand command = new PersonCommandAdd();
-
-        command.setParameters(parameters);
-    }
-
 
     @Test
-    public void execute() {
-        String name = "Сидоров";
-        Sex sex = Sex.MALE;
-        String sexString = InputParser.PARAM_SEX_MALE;
-        LocalDate birthDate = LocalDate.of(2003, 4, 13);
-        String birthDateString = "13/04/2003";
-        int expectedSize = PersonRepository.getAll().size() + 1;
+    public void setParameters_NameSexDate_True() {
+        Given:
+        parameters = new String[]{name, sexString, birthDateString};
 
-        String[] parameters = {name, sexString, birthDateString};
-        PersonCommand command = new PersonCommandAdd();
+        When:
+        command.setParameters(parameters);
 
-        try {
-            command.setParameters(parameters);
-        } catch (IncorrectInputException e) {
-            Assert.fail("Unexpected exception");
-            e.printStackTrace();
-            return;
+        Then:
+        {
+            Assert.assertEquals(name, command.getName());
+            Assert.assertEquals(sex, command.getSex());
+            Assert.assertEquals(birthDate, command.getBirthDate());
+        }
+    }
+
+    @Test(expected = IncorrectInputException.class)
+    public void setParameters_NameSex_ExceptionNotEnoughParameters() {
+        Given:
+        parameters = new String[]{name, sexString};
+
+        When:
+        command.setParameters(parameters);
+    }
+
+    @Test(expected = IncorrectInputException.class)
+    public void setParameters_IdNameSexDate_ExceptionTooManyParameters() {
+        Given:
+        parameters = new String[]{"1", name, sexString, birthDateString};
+
+        When:
+        command.setParameters(parameters);
+    }
+
+    @Test(expected = IncorrectInputException.class)
+    public void setParameters_WrongSex_Exception() {
+        Given:
+        {
+            String sexStringWrong = "male";
+            parameters = new String[]{name, sexStringWrong, birthDateString};
         }
 
+        When:
+        command.setParameters(parameters);
+    }
+
+
+    @Test
+    public void execute_RightParameters_AddedToRepository() {
+        int givenRepositorySize;
+
+        Given:
+        {
+            givenRepositorySize = PersonRepository.getAll().size();
+
+            parameters = new String[]{name, sexString, birthDateString};
+            command.setParameters(parameters);
+        }
+
+        When:
         command.execute();
 
-        Assert.assertEquals(expectedSize, PersonRepository.getAll().size());
-        Assert.assertEquals(String.format(PersonCommandAdd.MESSAGE_ADD, command.getId()), command.getResult());
+        Then:
+        {
+            Assert.assertEquals(givenRepositorySize, PersonRepository.getAll().size() - 1);
+            Assert.assertEquals(String.format(PersonCommandAdd.MESSAGE_ADD, command.getId()), command.getResult());
 
-        Person actual = PersonRepository.getById(command.getId());
-        Assert.assertEquals(name, actual.getName());
-        Assert.assertEquals(sex, actual.getSex());
-        Assert.assertEquals(birthDate, actual.getBirthDate());
+            Person actual = PersonRepository.getById(command.getId());
+            Assert.assertEquals(name, actual.getName());
+            Assert.assertEquals(sex, actual.getSex());
+            Assert.assertEquals(birthDate, actual.getBirthDate());
+        }
     }
 }
