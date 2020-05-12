@@ -10,104 +10,163 @@ import java.time.LocalDate;
 
 public class OutputBuilderTest {
 
-    @Test
-    public void getPersonInfo() {
-        int id = 1;
-        String name = "name";
-        Sex sex = Sex.MALE;
-        String sexString = OutputBuilder.SEX_MALE;
-        LocalDate date = LocalDate.of(2003, 4, 13);
-        String dateString = "13-Apr-2003";
+    String output;
 
-        String actual = OutputBuilder.getPersonInfo(id, name, sex, date);
-        String expected = String.format("%s %s %s", name, sexString, dateString);
-        Assert.assertEquals(expected, actual);
+    int personId;
+    String personName;
+    Sex personSex;
+    String personSexString;
+    LocalDate personDate;
+    String personDateString;
+
+    public void fillPersonData() {
+        personId = 1;
+        personName = "name";
+        personSex = Sex.MALE;
+        personSexString = OutputBuilder.SEX_MALE;
+        personDate = LocalDate.of(2003, 4, 13);
+        personDateString = "13-Apr-2003";
     }
 
     @Test
-    public void getPersonInfoRemoved() {
-        int id = 1;
-        String name = null;
-        Sex sex = null;
-        LocalDate date = null;
+    public void getPersonInfo_ExistingPerson_ExistingPersonInfo() {
+        Given:
+        fillPersonData();
 
-        String actual = OutputBuilder.getPersonInfo(id, name, sex, date);
-        String expected = String.format(OutputBuilder.MESSAGE_INFO_FOR_REMOVED_PERSON, id);
-        Assert.assertEquals(expected, actual);
+        When:
+        output = OutputBuilder.getPersonInfo(personId, personName, personSex, personDate);
+
+        Then:
+        Assert.assertEquals(String.format("%s %s %s", personName, personSexString, personDateString), output);
     }
 
     @Test
-    public void getPersonNullName() {
-        int id = 1;
-        String name = null;
-        Sex sex = Sex.MALE;
-        String sexString = OutputBuilder.SEX_MALE;
-        LocalDate date = LocalDate.of(2003, 4, 13);
-        String dateString = "13-Apr-2003";
+    public void getPersonInfo_RemovedPerson_RemovedPersonInfo() {
+        Given:
+        {
+            fillPersonData();
+            personName = null;
+            personSex = null;
+            personDate = null;
+        }
 
-        String actual = OutputBuilder.getPersonInfo(id, name, sex, date);
-        String expected = String.format("%s %s %s", name, sexString, dateString);
-        Assert.assertEquals(expected, actual);
+        When:
+        output = OutputBuilder.getPersonInfo(personId, personName, personSex, personDate);
+
+        Then:
+        Assert.assertEquals(String.format(OutputBuilder.MESSAGE_INFO_FOR_REMOVED_PERSON, personId), output);
     }
 
     @Test
-    public void getPersonNullSex() {
-        int id = 1;
-        String name = "name";
-        Sex sex = null;
-        String sexString = "null";
-        LocalDate date = LocalDate.of(2003, 4, 13);
-        String dateString = "13-Apr-2003";
+    public void getPersonInfo_ExistingPersonNullName_ExistingPersonInfo() {
+        Given:
+        {
+            fillPersonData();
+            personName = null;
+        }
 
-        String actual = OutputBuilder.getPersonInfo(id, name, sex, date);
-        String expected = String.format("%s %s %s", name, sexString, dateString);
-        Assert.assertEquals(expected, actual);
+        When:
+        output = OutputBuilder.getPersonInfo(personId, personName, personSex, personDate);
+
+        Then:
+        Assert.assertEquals(String.format("%s %s %s", personName, personSexString, personDateString), output);
     }
 
     @Test
-    public void getPersonNullDate() {
-        int id = 1;
-        String name = "name";
-        Sex sex = Sex.MALE;
-        String sexString = OutputBuilder.SEX_MALE;
-        LocalDate date = null;
-        String dateString = "null";
+    public void getPersonInfo_ExistingPersonNullSex_ExistingPersonInfo() {
+        Given:
+        {
+            fillPersonData();
+            personSex = null;
+            personSexString = "null";
+        }
 
-        String actual = OutputBuilder.getPersonInfo(id, name, sex, date);
-        String expected = String.format("%s %s %s", name, sexString, dateString);
-        Assert.assertEquals(expected, actual);
+        When:
+        output = OutputBuilder.getPersonInfo(personId, personName, personSex, personDate);
+
+        Then:
+        Assert.assertEquals(String.format("%s %s %s", personName, personSexString, personDateString), output);
+    }
+
+    @Test
+    public void getPersonInfo_ExistingPersonNullDate_ExistingPersonInfo() {
+        Given:
+        {
+            fillPersonData();
+            personDate = null;
+            personDateString = "null";
+        }
+
+        When:
+        output = OutputBuilder.getPersonInfo(personId, personName, personSex, personDate);
+
+        Then:
+        Assert.assertEquals(String.format("%s %s %s", personName, personSexString, personDateString), output);
     }
 
 
     @Test
-    public void writeSexMale() {
-        String actual = OutputBuilder.writeSex(Sex.MALE);
-        String expected = OutputBuilder.SEX_MALE;
-        Assert.assertEquals(expected, actual);
+    public void writeSex_Male_FormattedString() {
+        Sex sex;
+
+        Given:
+        sex = Sex.MALE;
+
+        When:
+        output = OutputBuilder.writeSex(sex);
+
+        Then:
+        Assert.assertEquals(OutputBuilder.SEX_MALE, output);
     }
 
     @Test
-    public void writeSexFemale() {
-        String actual = OutputBuilder.writeSex(Sex.FEMALE);
-        String expected = OutputBuilder.SEX_FEMALE;
-        Assert.assertEquals(expected, actual);
+    public void writeSex_Female_FormattedString() {
+        Sex sex;
+
+        Given:
+        sex = Sex.FEMALE;
+
+        When:
+        output = OutputBuilder.writeSex(sex);
+
+        Then:
+        Assert.assertEquals(OutputBuilder.SEX_FEMALE, output);
     }
 
     @Test(expected = SexIsEmptyException.class)
-    public void writeSexNull() {
-        OutputBuilder.writeSex(null);
+    public void writeSex_Null_Exception() {
+        Sex sex;
+
+        Given:
+        sex = null;
+
+        When:
+        OutputBuilder.writeSex(sex);
     }
 
 
     @Test
-    public void writeDate() {
-        String actual = OutputBuilder.writeDate(LocalDate.of(2003, 4, 13));
-        String expected = "13-Apr-2003";
-        Assert.assertEquals(expected, actual);
+    public void writeDate_Date_FormattedString() {
+        LocalDate date;
+
+        Given:
+        date = LocalDate.of(2003, 4, 13);
+
+        When:
+        output = OutputBuilder.writeDate(date);
+
+        Then:
+        Assert.assertEquals("13-Apr-2003", output);
     }
 
     @Test(expected = DateIsEmptyException.class)
-    public void writeDateNull() {
-        OutputBuilder.writeDate(null);
+    public void writeDate_Null_Exception() {
+        LocalDate date;
+
+        Given:
+        date = null;
+
+        When:
+        OutputBuilder.writeDate(date);
     }
 }
