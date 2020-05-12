@@ -10,168 +10,271 @@ import java.time.LocalDate;
 
 public class InputParserTest {
 
+    String input;
+    Object output;
+
     @Test
-    public void parseOperationAdd() {
-        Operation actual = InputParser.parseOperation(InputParser.PARAM_OPERATION_ADD);
-        Operation expected = Operation.ADD;
-        Assert.assertEquals(expected, actual);
+    public void parseOperation_C_Add() {
+        Given:
+        input = "-c";
+
+        When:
+        output = InputParser.parseOperation(input);
+
+        Then:
+        Assert.assertEquals(Operation.ADD, output);
     }
 
     @Test
-    public void parseOperationUpdate() {
-        Operation actual = InputParser.parseOperation(InputParser.PARAM_OPERATION_UPDATE);
-        Operation expected = Operation.UPDATE;
-        Assert.assertEquals(expected, actual);
+    public void parseOperation_U_Update() {
+        Given:
+        input = "-u";
+
+        When:
+        output = InputParser.parseOperation(input);
+
+        Then:
+        Assert.assertEquals(Operation.UPDATE, output);
     }
 
     @Test
-    public void parseOperationRemove() {
-        Operation actual = InputParser.parseOperation(InputParser.PARAM_OPERATION_REMOVE);
-        Operation expected = Operation.REMOVE;
-        Assert.assertEquals(expected, actual);
+    public void parseOperation_D_Remove() {
+        Given:
+        input = "-d";
+
+        When:
+        output = InputParser.parseOperation(input);
+
+        Then:
+        Assert.assertEquals(Operation.REMOVE, output);
     }
 
     @Test
-    public void parseOperationInfo() {
-        Operation actual = InputParser.parseOperation(InputParser.PARAM_OPERATION_INFO);
-        Operation expected = Operation.INFO;
-        Assert.assertEquals(expected, actual);
+    public void parseOperation_I_Info() {
+        Given:
+        input = "-i";
+
+        When:
+        output = InputParser.parseOperation(input);
+
+        Then:
+        Assert.assertEquals(Operation.INFO, output);
     }
 
     @Test(expected = IncorrectOperationException.class)
-    public void parseOperationElse() {
-        String someString = "test";
-        InputParser.parseOperation(someString);
+    public void parseOperation_Else_Exception() {
+        Given:
+        input = "else";
+
+        When:
+        output = InputParser.parseOperation(input);
     }
 
     @Test(expected = EmptyParameterException.class)
-    public void parseOperationNull() {
-        String nullString = null;
-        InputParser.parseOperation(nullString);
+    public void parseOperation_Null_Exception() {
+        Given:
+        input = null;
+
+        When:
+        output = InputParser.parseOperation(input);
     }
 
     @Test(expected = EmptyParameterException.class)
-    public void parseOperationEmpty() {
-        String emptyString = "   ";
-        InputParser.parseOperation(emptyString);
+    public void parseOperation_Empty_Exception() {
+        Given:
+        input = "    ";
+
+        When:
+        output = InputParser.parseOperation(input);
     }
 
 
     @Test
-    public void checkParametersCount() {
-        String[] parameters = {"-i", "1"};
-        InputParser.checkParametersCount(2, parameters);
-        Boolean actual = true;
-        Boolean expected = true;
-        Assert.assertEquals(expected, actual);
+    public void checkParametersCount_I2_True() {
+        int parametersCount;
+        String[] parameters;
+
+        Given:
+        {
+            parametersCount = 2;
+            parameters = new String[]{"-i", "1"};
+        }
+
+        When:
+        InputParser.checkParametersCount(parametersCount, parameters);
     }
 
     @Test(expected = IncorrectOperationParametersCountException.class)
-    public void checkParametersCountWrong() {
-        int parametersCount = 1;
-        InputParser.checkParametersCount(parametersCount);
+    public void checkParametersCount_I1_Exception() {
+        int parametersCount;
+        String[] parameters;
+
+        Given:
+        {
+            parametersCount = 2;
+            parameters = new String[]{"-i"};
+        }
+
+        When:
+        InputParser.checkParametersCount(parametersCount, parameters);
     }
 
 
     @Test
-    public void parseIdNumber() {
-        int actual = InputParser.parseId("1");
-        int expected = 1;
-        Assert.assertEquals(expected, actual);
+    public void parseId_1_1() {
+        Given:
+        input = "1";
+
+        When:
+        output = InputParser.parseId(input);
+
+        Then:
+        Assert.assertEquals(1, output);
     }
 
     @Test(expected = IncorrectIdException.class)
-    public void parseIdNumber0() {
-        String is0Id = "0";
-        InputParser.parseId(is0Id);
+    public void parseId_0_Exception() {
+        Given:
+        input = "0";
+
+        When:
+        output = InputParser.parseId(input);
     }
 
     @Test(expected = IncorrectIdException.class)
-    public void parseIdNumberNegative() {
-        String negativeId = "-1";
-        InputParser.parseId(negativeId);
+    public void parseId_Negative_Exception() {
+        Given:
+        input = "-1";
+
+        When:
+        output = InputParser.parseId(input);
     }
 
     @Test(expected = IncorrectIdException.class)
-    public void parseIdNotInt() {
-        String notIntId = "1.5";
-        InputParser.parseId(notIntId);
+    public void parseId_NotInt_Exception() {
+        Given:
+        input = "1.5";
+
+        When:
+        output = InputParser.parseId(input);
     }
 
     @Test(expected = IncorrectIdException.class)
-    public void parseIdNotNumber() {
-        String notNumberId = "a";
-        InputParser.parseId(notNumberId);
+    public void parseId_NotNumber_Exception() {
+        Given:
+        input = "some text";
+
+        When:
+        output = InputParser.parseId(input);
     }
 
     @Test(expected = EmptyParameterException.class)
-    public void parseIdNull() {
-        String nullId = null;
-        InputParser.parseId(nullId);
+    public void parseId_Null_Exception() {
+        Given:
+        input = null;
+
+        When:
+        output = InputParser.parseId(input);
     }
 
     @Test(expected = EmptyParameterException.class)
-    public void parseIdEmpty() {
-        String emptyId = "   ";
-        InputParser.parseId(emptyId);
+    public void parseId_Empty_Exception() {
+        Given:
+        input = "    ";
+
+        When:
+        output = InputParser.parseId(input);
     }
 
 
     @Test
-    public void parseSexMale() {
-        Sex actual = InputParser.parseSex(InputParser.PARAM_SEX_MALE);
-        Sex expected = Sex.MALE;
-        Assert.assertEquals(expected, actual);
+    public void parseSex_Male_Male() {
+        Given:
+        input = InputParser.PARAM_SEX_MALE;
+
+        When:
+        output = InputParser.parseSex(input);
+
+        Then:
+        Assert.assertEquals(Sex.MALE, output);
     }
 
     @Test
-    public void parseSexFemale() {
-        Sex actual = InputParser.parseSex(InputParser.PARAM_SEX_FEMALE);
-        Sex expected = Sex.FEMALE;
-        Assert.assertEquals(expected, actual);
+    public void parseSex_Female_Female() {
+        Given:
+        input = InputParser.PARAM_SEX_FEMALE;
+
+        When:
+        output = InputParser.parseSex(input);
+
+        Then:
+        Assert.assertEquals(Sex.FEMALE, output);
     }
 
     @Test(expected = IncorrectSexException.class)
-    public void parseSexElse() {
-        String someSex = "м.";
-        InputParser.parseSex(someSex);
+    public void parseSex_Else_Exception() {
+        Given:
+        input = "man";
+
+        When:
+        output = InputParser.parseSex(input);
     }
 
     @Test(expected = EmptyParameterException.class)
-    public void parseSexNull() {
-        String nullSex = null;
-        InputParser.parseSex(nullSex);
+    public void parseSex_Null_Exception() {
+        Given:
+        input = null;
+
+        When:
+        output = InputParser.parseSex(input);
     }
 
     @Test(expected = EmptyParameterException.class)
-    public void parseSexEmpty() {
-        String emptySex = "   ";
-        InputParser.parseSex(emptySex);
+    public void parseSex_Empty_Exception() {
+        Given:
+        input = "    ";
+
+        When:
+        output = InputParser.parseSex(input);
     }
 
 
     @Test
-    public void parseDate() {
-        LocalDate actual = InputParser.parseDate("12/04/2000");
-        LocalDate expected = LocalDate.of(2000, 4, 12);
-        Assert.assertEquals(expected, actual);
+    public void parseDate_AvailableFormat_Date() {
+        Given:
+        input = "12/04/2000";
+
+        When:
+        output = InputParser.parseDate(input);
+
+        Then:
+        Assert.assertEquals(LocalDate.of(2000, 4, 12), output);
     }
 
     @Test(expected = IncorrectDateException.class)
-    public void parseDateWrongFormat() {
-        String date = "12-04-2000";
-        InputParser.parseDate(date);
+    public void parseDate_WrongFormat_Exception() {
+        Given:
+        input = "12-04-2000";
+
+        When:
+        output = InputParser.parseDate(input);
     }
 
     @Test(expected = EmptyParameterException.class)
-    public void parseDateNull() {
-        String nullDate = null;
-        InputParser.parseDate(nullDate);
+    public void parseDate_Null_Exception() {
+        Given:
+        input = null;
+
+        When:
+        output = InputParser.parseDate(input);
     }
 
     @Test(expected = EmptyParameterException.class)
-    public void parseDateEmpty() {
-        String emptyDate = "   ";
-        InputParser.parseDate(emptyDate);
+    public void parseDate_Empty_Exception() {
+        Given:
+        input = "    ";
+
+        When:
+        output = InputParser.parseDate(input);
     }
 }
