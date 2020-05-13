@@ -5,6 +5,7 @@ import com.education.entities.PersonRepository;
 import com.education.entities.Sex;
 import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
 import com.education.util.InputParser;
+import com.education.util.OutputBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -97,8 +98,8 @@ public class PersonCommandAddTest {
 
         Then:
         {
-            Assert.assertEquals(givenRepositorySize, PersonRepository.getAll().size() - 1);
-            Assert.assertEquals(String.format(PersonCommandAdd.MESSAGE_ADD, command.getId()), command.getResult());
+            Assert.assertEquals(givenRepositorySize + 1, PersonRepository.getAll().size());
+            Assert.assertEquals(OutputBuilder.getPersonAddedMessage(command.getId()), command.getResult());
 
             Person actual = PersonRepository.getById(command.getId());
             Assert.assertEquals(name, actual.getName());

@@ -14,10 +14,14 @@ public class OutputBuilder {
 
     public static final String MESSAGE_INFO_FOR_REMOVED_PERSON = "Данные о человеке с id = %s удалены!";
     public static final String MESSAGE_INFO_DELIMITER = " ";
+    public static final String MESSAGE_ADD = "Новый пользователь добавлен с идентификатором = %d";
 
     public static final String DATE_FORMAT_FOR_OUTPUT = "dd-MMM-yyyy";
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_FOR_OUTPUT, Locale.ENGLISH);
 
+    public static String getPersonAddedMessage(int id) {
+        return String.format(MESSAGE_ADD, id);
+    }
 
     public static String getPersonInfo(int id, String name, Sex sex, LocalDate birthDate) {
         if (name == null && sex == null && birthDate == null)

@@ -6,145 +6,145 @@ import com.education.entities.PersonRepository;
 import com.education.exceptions.domain.PersonNotFoundException;
 import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class PersonCommandRemoveTest {
 
-    @Test
-    public void setParameters() {
-        int id = 1;
-        String idString = "1";
+    PersonCommand command;
+    String[] parameters;
 
-        String[] parameters = {idString};
-        PersonCommand command = new PersonCommandRemove();
+    int id;
+    String idString;
 
-        try {
-            command.setParameters(parameters);
-        } catch (IncorrectInputException e) {
-            Assert.fail("Unexpected exception");
-            e.printStackTrace();
-            return;
-        }
-        Assert.assertEquals(id, command.getId());
-        Assert.assertNull(command.getName());
-        Assert.assertNull(command.getSex());
-        Assert.assertNull(command.getBirthDate());
-    }
-
-    @Test(expected = IncorrectInputException.class)
-    public void setParametersNotEnoughParameters() {
-        String[] parameters = {};
-        PersonCommand command = new PersonCommandRemove();
-
-        command.setParameters(parameters);
-    }
-
-    @Test(expected = IncorrectInputException.class)
-    public void setParametersTooManyParameters() {
-        String idString = "1";
-        String name = "Сидоров";
-
-        String[] parameters = {idString, name};
-        PersonCommand command = new PersonCommandRemove();
-
-        command.setParameters(parameters);
-    }
-
-    @Test(expected = IncorrectInputException.class)
-    public void setParametersWrongParameters() {
-        String idStringWrong = "wrong";
-
-        String[] parameters = {idStringWrong};
-        PersonCommand command = new PersonCommandRemove();
-
-        command.setParameters(parameters);
-    }
-
-
-    @Test
-    public void executeExisting() {
+    @Before
+    public void fillParameters() {
         PersonTestUtils.fillPerson();
-
-        int expectedSize = PersonRepository.getAll().size();
         int minId = PersonTestUtils.getMinPersonId();
 
-        int id = minId;
-        String idString = String.valueOf(id);
+        command = new PersonCommandRemove();
 
-        String[] parameters = {idString};
-        PersonCommand command = new PersonCommandRemove();
-
-        try {
-            command.setParameters(parameters);
-        } catch (IncorrectInputException e) {
-            Assert.fail("Unexpected exception");
-            e.printStackTrace();
-            return;
-        }
-
-        command.execute();
-
-        Assert.assertEquals(expectedSize, PersonRepository.getAll().size());
-        Assert.assertNull(command.getResult());
-
-        Person actual = PersonRepository.getById(id);
-        Assert.assertNull(actual.getName());
-        Assert.assertNull(actual.getSex());
-        Assert.assertNull(actual.getBirthDate());
+        id = minId;
+        idString = String.valueOf(id);
     }
 
     @Test
-    public void executeRemoved() {
-        PersonTestUtils.fillPerson();
+    public void setParameters_Id_True() {
+        Given:
+        parameters = new String[]{idString};
 
-        int expectedSize = PersonRepository.getAll().size();
-        int minId = PersonTestUtils.getMinPersonId();
+        When:
+        command.setParameters(parameters);
 
-        int id = minId + 1;
-        String idString = String.valueOf(id);
+        Then:
+        {
+            Assert.assertEquals(id, command.getId());
+            Assert.assertNull(command.getName());
+            Assert.assertNull(command.getSex());
+            Assert.assertNull(command.getBirthDate());
+        }
+    }
 
-        String[] parameters = {idString};
-        PersonCommand command = new PersonCommandRemove();
+    @Test(expected = IncorrectInputException.class)
+    public void setParameters_EmptyArray_ExceptionNotEnoughParameters() {
+        Given:
+        parameters = new String[]{};
 
-        try {
-            command.setParameters(parameters);
-        } catch (IncorrectInputException e) {
-            Assert.fail("Unexpected exception");
-            e.printStackTrace();
-            return;
+        When:
+        command.setParameters(parameters);
+    }
+
+    @Test(expected = IncorrectInputException.class)
+    public void setParameters_IdName_ExceptionTooManyParameters() {
+        Given:
+        {
+            String name = "Сидоров";
+            parameters = new String[]{idString, name};
+
         }
 
+        When:
+        command.setParameters(parameters);
+    }
+
+    @Test(expected = IncorrectInputException.class)
+    public void setParameters_IdWrongFormat_Exception() {
+        Given:
+        {
+            String idStringWrong = "notId";
+            parameters = new String[]{idStringWrong};
+        }
+
+        When:
+        command.setParameters(parameters);
+    }
+
+
+    @Test
+    public void execute_ExistingPerson_DataRemovedInRepository() {
+        int givenRepositorySize;
+
+        Given:
+        {
+            givenRepositorySize = PersonRepository.getAll().size();
+            parameters = new String[]{idString};
+            command.setParameters(parameters);
+        }
+
+        When:
         command.execute();
 
-        Assert.assertEquals(expectedSize, PersonRepository.getAll().size());
-        Assert.assertNull(command.getResult());
+        Then:
+        {
+            Assert.assertEquals(givenRepositorySize, PersonRepository.getAll().size());
+            Assert.assertNull(command.getResult());
 
-        Person actual = PersonRepository.getById(id);
-        Assert.assertNull(actual.getName());
-        Assert.assertNull(actual.getSex());
-        Assert.assertNull(actual.getBirthDate());
+            Person actual = PersonRepository.getById(id);
+            Assert.assertNull(actual.getName());
+            Assert.assertNull(actual.getSex());
+            Assert.assertNull(actual.getBirthDate());
+        }
+    }
+
+    @Test
+    public void execute_RemovedPerson_DataRemovedInRepository() {
+        int givenRepositorySize;
+
+        Given:
+        {
+            givenRepositorySize = PersonRepository.getAll().size();
+            id++;
+            idString = String.valueOf(id);
+            parameters = new String[]{idString};
+            command.setParameters(parameters);
+        }
+
+        When:
+        command.execute();
+
+        Then:
+        {
+            Assert.assertEquals(givenRepositorySize, PersonRepository.getAll().size());
+            Assert.assertNull(command.getResult());
+
+            Person actual = PersonRepository.getById(id);
+            Assert.assertNull(actual.getName());
+            Assert.assertNull(actual.getSex());
+            Assert.assertNull(actual.getBirthDate());
+        }
     }
 
     @Test(expected = PersonNotFoundException.class)
-    public void executePersonNotFound() {
-        PersonTestUtils.fillPerson();
-
-        int minId = PersonTestUtils.getMinPersonId();
-
-        int id = minId + 4;
-        String idString = String.valueOf(id);
-
-        String[] parameters = {idString};
-        PersonCommand command = new PersonCommandRemove();
-
-        try {
+    public void execute_NoSuchIdInRepository_Exception() {
+        Given:
+        {
+            id += 4;
+            idString = String.valueOf(id);
+            parameters = new String[]{idString};
             command.setParameters(parameters);
-        } catch (IncorrectInputException e) {
-            Assert.fail("Unexpected exception");
-            e.printStackTrace();
-            return;
         }
 
+        When:
         command.execute();
     }
 

@@ -4,11 +4,11 @@ import com.education.entities.Person;
 import com.education.entities.PersonRepository;
 import com.education.exceptions.inout.incorrectInput.IncorrectInputException;
 import com.education.util.InputParser;
+import com.education.util.OutputBuilder;
 
 public class PersonCommandAdd extends PersonCommand {
 
     public static final int PARAMETERS_COUNT = 3;
-    public static final String MESSAGE_ADD = "Новый пользователь добавлен с идентификатором = %d";
     public static final String MESSAGE_ADD_EXCEPTION = "Ошибка при операции ADD";
 
     public PersonCommandAdd() {
@@ -35,6 +35,6 @@ public class PersonCommandAdd extends PersonCommand {
         PersonRepository.save(person);
 
         id = person.getId();
-        result = String.format(MESSAGE_ADD, id);
+        result = OutputBuilder.getPersonAddedMessage(id);
     }
 }
