@@ -14,11 +14,26 @@ public class Person {
     private Sex sex;
     private LocalDate birthDate;
 
-    public Person(String name, Sex sex, LocalDate birthDate) {
+    private Person() {
+        this.id = ++countPerson;
+    }
+
+    public static Person create(String name, Sex sex, LocalDate birthDate) {
+        Person person = new Person();
+        person.update(name, sex, birthDate);
+        return person;
+    }
+
+    public void update(String name, Sex sex, LocalDate birthDate) {
         this.name = name;
         this.sex = sex;
         this.birthDate = birthDate;
-        this.id = ++countPerson;
+    }
+
+    public void remove() {
+        name = null;
+        sex = null;
+        birthDate = null;
     }
 
     public int getId() {
@@ -29,23 +44,11 @@ public class Person {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Sex getSex() {
         return sex;
     }
 
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
-
     public LocalDate getBirthDate() {
         return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
     }
 }

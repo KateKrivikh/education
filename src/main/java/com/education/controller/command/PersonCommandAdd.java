@@ -30,7 +30,7 @@ public class PersonCommandAdd extends PersonCommand {
 
     @Override
     public void execute() {
-        Person person = new Person(name, sex, birthDate);
+        Person person = Person.create(name, sex, birthDate);
 
         PersonRepository.save(person);
 

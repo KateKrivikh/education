@@ -10,8 +10,8 @@ import java.util.List;
 
 public class PersonTestUtils {
     private static List<Person> getAllPerson() {
-        Person person1 = new Person("Иванов Иван", Sex.MALE, LocalDate.of(2000, 1, 1));
-        Person person2 = new Person(null, null, null);
+        Person person1 = Person.create("Иванов Иван", Sex.MALE, LocalDate.of(2000, 1, 1));
+        Person person2 = Person.create(null, null, null);
 
         return Arrays.asList(person1, person2);
     }

@@ -35,9 +35,7 @@ public class PersonCommandUpdate extends PersonCommand {
 
         // TODO пока что оставила как есть, буду думать дальше
         synchronized (person) {
-            person.setName(name);
-            person.setSex(sex);
-            person.setBirthDate(birthDate);
+            person.update(name, sex, birthDate);
         }
     }
 }
